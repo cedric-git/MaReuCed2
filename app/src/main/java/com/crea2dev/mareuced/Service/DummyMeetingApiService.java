@@ -10,6 +10,13 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public List<MeetingModel> getMeetings() {
-        return meetings;
+        return meetings; }
+
+
+    public void deleteNeighbour(MeetingModel meeting) {
+        meetings.remove(meeting);
     }
+
+
+
 }

@@ -3,12 +3,18 @@ package com.crea2dev.mareuced.ui.main;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+//import android.support.v7.app.AppCompatActivity;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+//import android.support.v7.app.AppCompatActivity;
+import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +23,6 @@ import android.view.ViewGroup;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
-import com.crea2dev.mareuced.Views.MeetingAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +32,17 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment {
 
+
+
     // FOR DESIGN
     @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView; // 1 - Declare RecyclerView
+//    @BindView(R.id.FABaddMeeting)
+//    public android.support.design.widget.FloatingActionButton mFavFab;
+    private FloatingActionButton mCreateMeetingFloatingActionButton;
+    private FloatingActionButton fab;
+
+
+
 
 
     private MainViewModel mViewModel;
@@ -37,7 +51,7 @@ public class MainFragment extends Fragment {
 //    private Disposable disposable;
     // 2 - Declare list of users (GithubUser) & Adapter
     private List<MeetingModel> Meetings;
-    private MeetingAdapter adapter;
+    private MeetingRecycleViewAdapter adapter;
 
     public MainFragment() { }
 
@@ -54,14 +68,27 @@ public class MainFragment extends Fragment {
 
         ButterKnife.bind(this, view);
         this.configureRecyclerView(); // - 4 Call during UI creation
+
+//        fab = (FloatingActionButton) findViewById(R.id.FABaddMeeting);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity_MeetingList.this,AddMeetingActivity.class));
+//            }
+//        });
+
+//        mCreateMeetingFloatingActionButton = getActivity().findViewById(R.id.FABaddMeeting);
+//        mCreateMeetingFloatingActionButton.setOnClickListener(v -> mPresenter.createMeeting());
+
         return view;
+
+
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        this.disposeWhenDestroy();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
 
 //*****************************************************
@@ -85,7 +112,7 @@ public class MainFragment extends Fragment {
         Injection.getMeetingApiService().getMeetings();
         this.Meetings=Injection.getMeetingApiService().getMeetings();
         // 3.2 - Create adapter passing the list of users
-        this.adapter = new MeetingAdapter(this.Meetings);
+        this.adapter = new MeetingRecycleViewAdapter(this.Meetings);
         // 3.3 - Attach the adapter to the recyclerview to populate items
         this.recyclerView.setAdapter(this.adapter);
         // 3.4 - Set layout manager to position the items

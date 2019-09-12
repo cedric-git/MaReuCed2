@@ -7,6 +7,12 @@ public interface MeetingApiService {
 
     List<MeetingModel> getMeetings();
 
+    /**
+     * Deletes a neighbour
+     * @param meeting
+     */
+    void deleteNeighbour(MeetingModel meeting);
+
 }
 
 
