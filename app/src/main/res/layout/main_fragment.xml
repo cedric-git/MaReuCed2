@@ -31,5 +31,16 @@
 
 <!--    </RelativeLayout>-->
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/FABaddMeeting"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_person_add_white_24dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,9 +43,13 @@ public class AddMeetingFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
         return view;
-
-
+//   todo OnTimeSetListener
+//    set listener
+//instancier class du picker fragment
+//        utiliser le fragment manager
     }
+
+
 }
 
 

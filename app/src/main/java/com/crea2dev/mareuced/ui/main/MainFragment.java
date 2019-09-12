@@ -2,6 +2,7 @@ package com.crea2dev.mareuced.ui.main;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.app.AppCompatActivity;
+import com.crea2dev.mareuced.AddMeetingActivity;
+import com.crea2dev.mareuced.MainActivity_MeetingList;
 import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -69,13 +72,13 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, view);
         this.configureRecyclerView(); // - 4 Call during UI creation
 
-//        fab = (FloatingActionButton) findViewById(R.id.FABaddMeeting);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity_MeetingList.this,AddMeetingActivity.class));
-//            }
-//        });
+        fab = (FloatingActionButton) view.findViewById(R.id.FABaddMeeting);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), AddMeetingActivity.class));
+            }
+        });
 
 //        mCreateMeetingFloatingActionButton = getActivity().findViewById(R.id.FABaddMeeting);
 //        mCreateMeetingFloatingActionButton.setOnClickListener(v -> mPresenter.createMeeting());

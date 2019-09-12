@@ -29,13 +29,13 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        fab = (FloatingActionButton) findViewById(R.id.FABaddMeeting);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity_MeetingList.this,AddMeetingFragment.class));
-            }
-        });
+//        fab = (FloatingActionButton) findViewById(R.id.FABaddMeeting);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity_MeetingList.this,AddMeetingFragment.class));
+//            }
+//        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
