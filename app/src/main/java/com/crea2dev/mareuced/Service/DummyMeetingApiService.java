@@ -12,8 +12,8 @@ public class DummyMeetingApiService implements MeetingApiService {
     public List<MeetingModel> getMeetings() {
         return meetings; }
 
-
-    public void deleteNeighbour(MeetingModel meeting) {
+    @Override
+    public void deleteMeeting(MeetingModel meeting) {
         meetings.remove(meeting);
     }
 

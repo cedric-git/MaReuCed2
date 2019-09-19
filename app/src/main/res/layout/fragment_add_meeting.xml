@@ -20,7 +20,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please enter following datas"
+            android:text="Please enter metting's infos"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="24sp" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
 
-            android:hint="Meeting Name">
+            android:hint="Topic">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"

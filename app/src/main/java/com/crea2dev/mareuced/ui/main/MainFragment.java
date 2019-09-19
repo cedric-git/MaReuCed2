@@ -35,16 +35,12 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment {
 
-
-
     // FOR DESIGN
     @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView; // 1 - Declare RecyclerView
 //    @BindView(R.id.FABaddMeeting)
 //    public android.support.design.widget.FloatingActionButton mFavFab;
     private FloatingActionButton mCreateMeetingFloatingActionButton;
     private FloatingActionButton fab;
-
-
 
 
 
@@ -84,7 +80,6 @@ public class MainFragment extends Fragment {
 //        mCreateMeetingFloatingActionButton.setOnClickListener(v -> mPresenter.createMeeting());
 
         return view;
-
 
     }
 

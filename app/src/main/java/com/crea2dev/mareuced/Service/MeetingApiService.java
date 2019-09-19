@@ -7,13 +7,13 @@ public interface MeetingApiService {
 
     List<MeetingModel> getMeetings();
 
+    //TODO: Complete with : get all, add and delete
     /**
-     * Deletes a neighbour
+     * Deletes a meeting
      * @param meeting
      */
-    void deleteNeighbour(MeetingModel meeting);
+    void deleteMeeting(MeetingModel meeting);
 
 }
 
 
-//TODO: Complete with : get all, add and delete

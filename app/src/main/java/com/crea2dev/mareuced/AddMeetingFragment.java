@@ -1,22 +1,35 @@
 package com.crea2dev.mareuced;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TimePicker;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-
 public class AddMeetingFragment extends DialogFragment {
+
+
+    EditText chooseTime;
+    TimePickerDialog timePickerDialog;
+    Calendar calendar;
+    int currentHour;
+    int currentMinute;
+    String amPm;
+
 
     @BindView(R.id.newMeeting_Name)
     TextInputLayout mNewMeeting_Name;
@@ -27,8 +40,13 @@ public class AddMeetingFragment extends DialogFragment {
     @BindView(R.id.newMeeting_Participants)
     TextInputLayout mNewMeeting_Participants;
 
+
+
+
     public AddMeetingFragment() {
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,15 +60,51 @@ public class AddMeetingFragment extends DialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
+
+//        chooseTime = view.findViewById(R.id.etChooseTime);
+        mNewMeeting_Time.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+//                timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    }
+                }, currentHour, currentMinute, false);
+
+                timePickerDialog.show();
+            }
+        });
+
         return view;
 //   todo OnTimeSetListener
 //    set listener
 //instancier class du picker fragment
 //        utiliser le fragment manager
+
+
+
+
+    }
+
     }
 
 
-}
+
+
+
+
+
 
 
 
