@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,13 +37,13 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
-//    @BindView(R.id.nameInput) TextView mName;
-//    @BindView(R.id.hourInput) TextView mHour;
-//    @BindView(R.id.placeInput) TextView mPlace;
-//    @BindView(R.id.emailsInput) TextView mMail;
-//    @BindView(R.id.item_list_delete_button) ImageButton mDeleteButton;
+    @BindView(R.id.nameInput) TextView mName;
+    @BindView(R.id.hourInput) TextView mHour;
+    @BindView(R.id.placeInput) TextView mPlace;
+    @BindView(R.id.emailsInput) TextView mMail;
+    @BindView(R.id.item_list_delete_button) ImageButton mDeleteButton;
 
-            private ImageView imageView;
+    private ImageView imageView;
         private TextView titleTextView;
         private TextView mailsTextView;
         private TextView hourTextView;
@@ -50,9 +51,9 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
 
 //    public MeetingsViewHolder(@NonNull View itemView) {
 //        super(itemView);
-
-//        imageView = itemView.findViewById(R.id.imageView_item_meeting);
-//        titleTextView = itemView.findViewById(R.id.textView_item_main);
+//
+////        imageView = itemView.findViewById(R.id.imageView_item_meeting);
+////        titleTextView = itemView.findViewById(R.id.textView_item_main);
 //        mailsTextView = itemView.findViewById(R.id.emailsInput);
 //        hourTextView = itemView.findViewById(R.id.hourInput);
 //        deleteButton = itemView.findViewById(R.id.item_list_delete_button);
@@ -95,6 +96,8 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
 //                    EventBus.getDefault().post(new DeleteMeetingEvent(mMeetings.get(position)));
 //                }
 //            });
+
+
     }
 
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST
@@ -107,7 +110,7 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
 
 
         @BindView(R.id.item_list_delete_button)
-        public ImageButton mDeleteButton;
+        public Button mDeleteButton;
 
         @BindView(R.id.AddMeetingLayout)
         public ConstraintLayout mMeetingLayout;
@@ -119,7 +122,7 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
         }
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+//     Replace the contents of a view (invoked by the layout manager)
 //    @Override
 //    public void onBindViewHolder(@NonNull MeetingViewHolder holder, int i) {
 //        public void onBindViewHolder (@NonNull MeetingsViewHolder holder,final int i){
@@ -135,10 +138,15 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
 //                    EventBus.getDefault().post(new DeleteMeetingEvent(mMeetings.get(i)));
 //                }
 //            });
-//
-//
 //        }
 //    }
+//
+//                MeetingViewHolder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
+//        }
+//    });
 
 
 }

@@ -37,10 +37,10 @@ public class MeetingRepository {
     }
 
 
-//    public void addMeeting(MeetingModel meeting){
-//        if (apiService == null){
-//            apiService = Injection.getMeetingApiService();
-//        }
-//        apiService.addMeeting(meeting);
-//    }
+    public void addMeeting(MeetingModel meeting){
+        if (apiService == null){
+            apiService = Injection.getMeetingApiService();
+        }
+        apiService.addMeeting(meeting);
+    }
 }

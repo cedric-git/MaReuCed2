@@ -76,9 +76,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-//        mCreateMeetingFloatingActionButton = getActivity().findViewById(R.id.FABaddMeeting);
-//        mCreateMeetingFloatingActionButton.setOnClickListener(v -> mPresenter.createMeeting());
-
         return view;
 
     }
@@ -123,8 +120,15 @@ public class MainFragment extends Fragment {
     // -------------------
 
     private void updateUI(List<MeetingModel> users){
+        Meetings = new ArrayList<>();
         Meetings.addAll(users);
         adapter.notifyDataSetChanged();
-    }
 
+    }
+@Override
+    public void onStart (){
+        super.onStart();
+    this.Meetings=Injection.getMeetingApiService().getMeetings();
+        updateUI(this.Meetings);
+}
 }

@@ -20,7 +20,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please enter metting's infos"
+            android:text="Please enter meeting's infos"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="24sp" />
 
@@ -76,7 +76,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/newMeeting_Participants"
-            android:layout_width="match_parent"
+            android:layout_width="228dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/newMeeting_Time"
 
@@ -85,9 +85,51 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </com.google.android.material.textfield.TextInputEditText>
+                android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_add_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newMeeting_Participants"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="122dp"
+            android:layout_marginTop="230dp"
+            android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@android:drawable/ic_menu_save"
+            android:text="   SAVE MEETING" />
+
+        <TextView
+            android:id="@+id/enter_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="177dp"
+            android:layout_marginTop="547dp"
+            android:text="enter_time" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="209dp"
+            android:layout_marginEnd="8dp"
+            android:drawableStart="@drawable/ic_person_add_white_24dp"
+            android:text="  ADD PARTICIPANT" />
+
+        <TextView
+            android:id="@+id/display_participant_list_text_view"
+            android:layout_width="373dp"
+            android:layout_height="210dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="268dp"
+            android:text="display_participant_list_text_view" />
 
 
     </RelativeLayout>

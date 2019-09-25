@@ -2,6 +2,7 @@ package com.crea2dev.mareuced;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import com.crea2dev.mareuced.Service.Injection;
 import com.crea2dev.mareuced.Service.MeetingApiService;
+import com.crea2dev.mareuced.Views.MeetingViewHolder;
 import com.crea2dev.mareuced.ui.main.MainFragment;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,6 +69,8 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         super.onStart();
         //Register to eventbus to handle item clicks
         EventBus.getDefault().register(this);
+
+        mMeetings = mApiService.getMeetings();
     }
 
     @Override
@@ -78,6 +83,15 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event){
         mApiService.deleteMeeting(event.meeting);
-//        mAdapter.notifyDataSetChanged();
     }
+
+//    MeetingViewHolder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            EventBus.getDefault().post(new DeleteMeetingEvent(MeetingModel));
+//        }
+//    };
+
+
+
 }

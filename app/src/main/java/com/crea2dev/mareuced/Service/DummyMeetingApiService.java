@@ -13,6 +13,11 @@ public class DummyMeetingApiService implements MeetingApiService {
         return meetings; }
 
     @Override
+    public void addMeeting(MeetingModel meeting) {
+        meetings.add(meeting);
+    }
+
+    @Override
     public void deleteMeeting(MeetingModel meeting) {
         meetings.remove(meeting);
     }
