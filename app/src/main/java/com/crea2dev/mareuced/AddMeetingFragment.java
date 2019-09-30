@@ -1,18 +1,15 @@
 package com.crea2dev.mareuced;
 
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -20,27 +17,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Service.Injection;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 public class AddMeetingFragment extends DialogFragment implements OnClickListener {
 
-int hourChossen;
+int hourChoosen;
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
@@ -49,26 +39,15 @@ int hourChossen;
     String amPm;
 
 
-    @BindView(R.id.newMeeting_Name)
-    TextInputLayout mNewMeeting_Name;
-    @BindView(R.id.newMeeting_Place)
-    TextInputLayout mNewMeeting_Place;
-    @BindView(R.id.newMeeting_Time)
-    TextInputLayout mNewMeeting_Time;
-//
-//    @BindView(R.id.enter_time)
-//    Text mNewMeeting_Time2;
+    @BindView(R.id.newMeeting_Name) TextInputLayout mNewMeeting_Name;
+    @BindView(R.id.newMeeting_Place) TextInputLayout mNewMeeting_Place;
+    @BindView(R.id.newMeeting_Time) TextInputLayout mNewMeeting_Time;
+    @BindView(R.id.newMeeting_Participants) TextInputLayout mNewMeeting_Participants;
 
-    @BindView(R.id.newMeeting_Participants)
-    TextInputLayout mNewMeeting_Participants;
+    @BindView(R.id.button_add_meeting) Button mValidateButton;
+    @BindView(R.id.button_add_participant) Button mAddParticipantButton;
 
-    @BindView(R.id.button_add_meeting)
-    Button mValidateButton;
-
-//    @BindView(R.id.button_add_meeting)
-//    Button mV;
-
-//    @BindView(R.id.button_add_meeting) Button Button_add_meeting;
+    @BindView(R.id.display_participant_list_text_view) TextView mDisplayParticipantList;
 
     private EditText mNameEdit;
     private EditText mParticipantsEdit;
@@ -80,13 +59,14 @@ int hourChossen;
     }
     private MeetingModel mMeeting;
 
+    //create object of listview
+//    ListView listView=(ListView)findViewById(R.id.listview);
+    @BindView(R.id.listview) ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-
     }
 
     @Override
@@ -96,6 +76,11 @@ int hourChossen;
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
 
+        //================================ SAVE MEETING
+
+
+//
+//todo : recuperer tous les champs et les additionner a la liste de MeetingModel : meetings
 
         mValidateButton.setOnClickListener(
                 new OnClickListener(){
@@ -113,13 +98,43 @@ int hourChossen;
                     }
                     });
 
+        //================================ ADD PARTICIPANTS
+//todo : a chaque appuis sur ADD PARTICIPANT, l'email renseigne est ajoute a une arraylist
+//       et displayed dans la TextView au dessous (entraine son update a chaque click ?)
+
+
+//create ArrayList of String
+        final ArrayList participants = new ArrayList();
+
+//        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, participants);
+
+//assign adapter to listview
+//        listView.setAdapter(arrayAdapter);
+
+
+        mAddParticipantButton.setOnClickListener(
+                new OnClickListener() {
+                    String newParticipant = "";
+                    String newLine = System.getProperty("line.separator");
+                    @Override
+                    public void onClick(View v) {
+                        String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
+                        newParticipant = newParticipant + inputParticipant+newLine;
+                        participants.add(newParticipant);
+
+                        mDisplayParticipantList.setText(newParticipant);
+//                        mDisplayParticipantList.setText(participants);
+
+                        Toast.makeText(getContext(), inputParticipant, Toast.LENGTH_SHORT).show();
+                        mNewMeeting_Participants.getEditText().getText().clear();
+
+                    }
+                });
 
 
         //================================  TIME PICKER
 
         mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-
-//                public Button mValidateButton;
 
             @Override
             public void onClick(View view) {
@@ -139,9 +154,9 @@ int hourChossen;
 
 //todo : enregistrer l'heure dans une variable (PUBLIC ?) +++++++++++++++++++++++++
 
-                        hourChossen = hourOfDay;
+                        hourChoosen = hourOfDay;
 
-                        Toast.makeText(getContext(), Integer.toString(hourChossen), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), Integer.toString(hourChoosen), Toast.LENGTH_LONG).show();
 //                        String Heure_String;
 //                        mNewMeeting_Time_To_Record = hourOfDay;
 //                        Heure_String = toString(Calendar.HOUR_OF_DAY);
@@ -154,11 +169,7 @@ int hourChossen;
             }
 
 
- //================================ SAVE MEETING
 
-
-//
-//todo : recuperer tous les champs et les additionner a la liste de MeetingModel : meetings
 
 
 
