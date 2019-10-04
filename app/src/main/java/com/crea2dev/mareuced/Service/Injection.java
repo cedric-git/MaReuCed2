@@ -12,7 +12,7 @@ public class Injection {
 
     public static MeetingApiService getMeetingApiService() { return service; }
 
-    public static MeetingApiService getNewInsanceApiService(){
+    public static MeetingApiService getNewInstanceApiService(){
         return new DummyMeetingApiService();
     }
 }

@@ -9,6 +9,7 @@ public class MeetingModel {
         private String place;
         private String mails;
 
+
         public MeetingModel(String name, String hour, String place, String mails) {
             this.name = name;
             this.hour = hour;

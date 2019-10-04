@@ -15,24 +15,17 @@ public class SortMeetings {
 
     }
 
-
     public static List<MeetingModel> nameOrder(List<MeetingModel> meetings){
 
         Collections.sort(meetings, new Comparator<MeetingModel>() {
             @Override
-            public int compare(MeetingModel o1, MeetingModel o2) {
-                return 0;
+            public int compare(MeetingModel a, MeetingModel b) {
+                return a.getName().compareTo(b.getName());
             }
-
-//            @Override
-//            public int compare(MeetingModel a, MeetingModel b) {
-//                return a.getName().compareTo(b.getName());
-//            }
         });
 
         return meetings;
     }
-
 
 
     public static List<MeetingModel> dateOrder(List<MeetingModel> meetings){

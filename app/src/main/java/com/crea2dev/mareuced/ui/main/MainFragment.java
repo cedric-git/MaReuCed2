@@ -14,18 +14,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.app.AppCompatActivity;
 import com.crea2dev.mareuced.AddMeetingActivity;
+import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import com.crea2dev.mareuced.MainActivity_MeetingList;
+import com.crea2dev.mareuced.Service.DummyMeetingApiService;
+import com.crea2dev.mareuced.Service.MeetingApiService;
 import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
+import com.crea2dev.mareuced.utils.SortMeetings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +42,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
+
 public class MainFragment extends Fragment {
+
+
 
     // FOR DESIGN
     @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView; // 1 - Declare RecyclerView
@@ -128,7 +141,49 @@ public class MainFragment extends Fragment {
 @Override
     public void onStart (){
         super.onStart();
+    EventBus.getDefault().register(this);
+
     this.Meetings=Injection.getMeetingApiService().getMeetings();
         updateUI(this.Meetings);
 }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+@Subscribe
+
+public void onDeleteMeeting(DeleteMeetingEvent event){
+    MeetingApiService meetingApiService = Injection.getMeetingApiService();
+    meetingApiService.deleteMeeting(event.meeting);
+    this.Meetings=Injection.getMeetingApiService().getMeetings();
+    updateUI(this.Meetings);
+    }
+
+    // -------------------
+    // SORT BY ...
+    // -------------------
+
+
+
+public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+    switch (item.getItemId()){
+        case R.id.menu_sort_by_name:
+            Toast.makeText(getContext(), "menu_sort_by_name", Toast.LENGTH_SHORT).show();
+            return true;
+        case R.id.menu_sort_by_date:
+            Toast.makeText(getContext(), "menu_sort_by_date", Toast.LENGTH_SHORT).show();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+}
+
+
 }

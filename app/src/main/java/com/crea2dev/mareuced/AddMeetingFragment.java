@@ -20,17 +20,21 @@ import androidx.fragment.app.DialogFragment;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Service.Injection;
+import com.crea2dev.mareuced.utils.TimeConverting;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddMeetingFragment extends DialogFragment implements OnClickListener {
 
-int hourChoosen;
+    int hourChoosen;
     EditText chooseTime;
     TimePickerDialog timePickerDialog;
     Calendar calendar;
@@ -43,16 +47,11 @@ int hourChoosen;
     @BindView(R.id.newMeeting_Place) TextInputLayout mNewMeeting_Place;
     @BindView(R.id.newMeeting_Time) TextInputLayout mNewMeeting_Time;
     @BindView(R.id.newMeeting_Participants) TextInputLayout mNewMeeting_Participants;
-
     @BindView(R.id.button_add_meeting) Button mValidateButton;
     @BindView(R.id.button_add_participant) Button mAddParticipantButton;
-
     @BindView(R.id.display_participant_list_text_view) TextView mDisplayParticipantList;
 
-    private EditText mNameEdit;
-    private EditText mParticipantsEdit;
-    private NumberPicker mMinutesPicker;
-    private NumberPicker mHourPicker;
+
 //    private Button mValidateButton;
 
     public AddMeetingFragment() {
@@ -86,15 +85,47 @@ int hourChoosen;
                 new OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Meeting Saved", Toast.LENGTH_SHORT).show();
 
-//                        gerer les nulls
-        mMeeting = new MeetingModel(mNewMeeting_Name.getEditText().getText().toString(), mNewMeeting_Time.getEditText().getText().toString(), mNewMeeting_Place.getEditText().getText().toString(), mNewMeeting_Participants.getEditText().getText().toString());
 
-                       Injection.getMeetingApiService().addMeeting(mMeeting);
 
-                       getActivity().finish();
+//                        gerer le format d'heure
 
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+                        String timeField = mNewMeeting_Time.getEditText().getText().toString();
+
+                        try {
+                            Date formatedTime = sdf.parse(timeField);
+                            System.out.println(formatedTime);
+                        } catch (ParseException e) {
+//                            toast le format est iuncorrect
+                            System.out.println("Exception=====================================");
+                            e.printStackTrace();
+                        }
+
+
+//                        empecher les champs vides
+                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
+                                 && !mNewMeeting_Time.getEditText().getText().toString().equals("")
+                                 && !mDisplayParticipantList.getText().toString().equals("")
+                                 && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
+
+                        {
+                            mMeeting = new MeetingModel(
+                                    mNewMeeting_Name.getEditText().getText().toString(),
+                                    mNewMeeting_Time.getEditText().getText().toString(),
+                                    mNewMeeting_Place.getEditText().getText().toString(),
+                                    mDisplayParticipantList.getText().toString()
+
+
+                            );
+
+
+                            Injection.getMeetingApiService().addMeeting(mMeeting);
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(getContext(), "Field missing", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
                     });
 
@@ -118,14 +149,15 @@ int hourChoosen;
                     String newLine = System.getProperty("line.separator");
                     @Override
                     public void onClick(View v) {
+
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
-                        newParticipant = newParticipant + inputParticipant+newLine;
+                        newParticipant = newParticipant + inputParticipant+" ,"+newLine;
                         participants.add(newParticipant);
 
                         mDisplayParticipantList.setText(newParticipant);
 //                        mDisplayParticipantList.setText(participants);
 
-                        Toast.makeText(getContext(), inputParticipant, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), inputParticipant, Toast.LENGTH_SHORT).show();
                         mNewMeeting_Participants.getEditText().getText().clear();
 
                     }
@@ -135,6 +167,7 @@ int hourChoosen;
         //================================  TIME PICKER
 
         mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
+//                    mTime_Zone.getEditText().setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -151,6 +184,8 @@ int hourChoosen;
                             amPm = "AM";
                         }
                         mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+
+//                        String mDate = TimeConverting.getTimeFromDate(hourOfDay.getValue() + ":" + minutes.getValue());
 
 //todo : enregistrer l'heure dans une variable (PUBLIC ?) +++++++++++++++++++++++++
 
@@ -170,24 +205,8 @@ int hourChoosen;
 
 
 
-
-
-
-//================================ ADD PARTICIPANTS
 //todo : a chaque appuis sur ADD PARTICIPANT, l'email renseigne est ajoute a une arraylist
 //       et displayed dans la TextView au dessous (entraine son update a chaque click ?)
-
-
-            ArrayList participants = new ArrayList();
-//            ou
-//            String PanticipantsList [];
-
-// OnClickListener sur bouton ADD PARTICIPANT
-
-//                  mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-//
-//            }
-//            mNewMeeting_Participants.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
 
 String newEmail;
@@ -199,22 +218,11 @@ String newEmail;
                 return newEmail;
             }
 
-//            participants.add(newEmail);
-
-//            public ArrayList getParticipants() {
-//                return participants;
-//            }
-
-//                      mValidateButton.setOnClickListener(v -> finish());
-
-
 //@Override
 public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 //    super.onViewCreated(view, savedInstanceState);
 
-    mNameEdit = view.findViewById(R.id.nameInput);
-
-
+//    mNameEdit = view.findViewById(R.id.nameInput);
 
     //Set pickers
 
@@ -228,12 +236,7 @@ OnClickListener onClickListener = new OnClickListener() {
     @Override
     public void onClick(View view) {
 
-        String mName = mNameEdit.getText().toString().trim();
-
-//        if (!mName.equals("") && !mDate.equals("") && !mRoom.equals("") && !mParticipants.equals("")){
-
-//        mMeeting = new MeetingModel(mName, mNewMeeting_Time, mNewMeeting_Place, mNewMeeting_Participants);
-//            mMeetingViewModel.addMeeting(mMeeting);
+//        String mName = mNameEdit.getText().toString().trim();
 
             dismiss();
 //        } else {
@@ -243,28 +246,17 @@ OnClickListener onClickListener = new OnClickListener() {
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
         });
 
-//        Toast toast = Toast.makeText(getApplicationContext(), "mon message", Toast.LENGTH_LONG).show();
 
         return view;
-//   todo OnTimeSetListener
-//    set listener
-//    instancier class du picker fragment
-//     utiliser le fragment manager
 
     }
 
     @Override
     public void onClick(View v) {
-
-//        mValidateButton.setOnClickListener(new View.OnClickListener()){
-//        };
 
     }
 }

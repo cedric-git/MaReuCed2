@@ -13,9 +13,11 @@ public class MainViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     private MutableLiveData<List<MeetingModel>> mMeetings = new MutableLiveData<>();
+//    private List<MeetingModel> mMeetings = (List<MeetingModel>) new MutableLiveData<>();
+
     private MeetingRepository mMeetingRepository;
 
-//    public MeetingViewModel(){
+//    public void deleteMeeting(MeetingModel meeting){
 //        mMeetingRepository = MeetingRepository.getInstance();
 //        mMeetings.setValue(mMeetingRepository.getMeetings());
 //    }

@@ -7,10 +7,10 @@ import java.util.List;
 
 public abstract class DummyMeetingGenerator {
 
-    private static List<MeetingModel> DUMMY_MEETINGS = Arrays.asList(
-            new MeetingModel("Strategie", "16H20", "Salle 7", "zoe@gmail.com"),
-            new MeetingModel("Marketing", "9H20", "Salle 3", "bob@gmail.com"),
-            new MeetingModel("Design", "17H00", "Amphi", "ced@gmail.com")
+    public static List<MeetingModel> DUMMY_MEETINGS = Arrays.asList(
+            new MeetingModel("Strategie", "16H20", "Salle 7", "zoe@gmail.com, luigi@yahoo.com"),
+            new MeetingModel("Marketing", "9H20", "Salle 3", "bob@gmail.com, ninja@hotmail.com, barnabe@free.fr"),
+            new MeetingModel("Design", "17H00", "Amphi", "ced@gmail.com, soph@gr.com")
     );
 
     static List<MeetingModel> generateMeetings() {

@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_meeting_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#0F4CAF50"
     android:orientation="vertical"
-    android:padding="10dip">
-
-
+    android:padding="10dp">
 
 
     <LinearLayout
@@ -19,7 +16,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
-
 
 
         <TextView
@@ -54,8 +50,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:layout_marginRight="10dp"
+            android:layout_weight="0"
             app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
 
@@ -87,7 +83,7 @@
 
         <TextView
             android:id="@+id/placeInput"
-            android:layout_width="115dp"
+            android:layout_width="369dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
@@ -113,8 +109,9 @@
 
         <TextView
             android:id="@+id/emailsInput"
-            android:layout_width="316dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+
             android:layout_weight="1"
 
             android:ems="10"
@@ -123,8 +120,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

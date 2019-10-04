@@ -25,21 +25,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         transaction.replace(R.id.AddMeetingLayout, addMeetingFragment);
         transaction.commit();
 
-        final EditText chooseTime;
-        final TimePickerDialog[] timePickerDialog = new TimePickerDialog[1];
-        final Calendar[] calendar = new Calendar[1];
-        final int[] currentHour = new int[1];
-        final int[] currentMinute = new int[1];
-        String amPm;
 
         }
-
-//    Context context = getApplicationContext();
-//    CharSequence text = "Hello toast!";
-//    int duration = Toast.LENGTH_SHORT;
-//
-//    Toast toast = Toast.makeText(context, text, duration);
-//                toast.show();
 
     }
 
