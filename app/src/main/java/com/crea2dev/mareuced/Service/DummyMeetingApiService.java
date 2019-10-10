@@ -1,6 +1,7 @@
 package com.crea2dev.mareuced.Service;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
+import com.crea2dev.mareuced.utils.SortMeetings;
 
 import java.util.List;
 
@@ -23,5 +24,16 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
 
+    @Override
+    public void sortMeetingsByName()
+    {
+        this.meetings=SortMeetings.nameOrder(meetings);
+    }
+
+
+    @Override
+    public void sortMeetingsByDate() {
+        this.meetings=SortMeetings.dateOrder(meetings);
+    }
 
 }

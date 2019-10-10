@@ -15,19 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 //import android.support.v7.app.AppCompatActivity;
 import com.crea2dev.mareuced.AddMeetingActivity;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
-import com.crea2dev.mareuced.MainActivity_MeetingList;
-import com.crea2dev.mareuced.Service.DummyMeetingApiService;
+import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
+import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Service.MeetingApiService;
 import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
-import com.crea2dev.mareuced.utils.SortMeetings;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
@@ -37,6 +34,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -119,7 +118,7 @@ public class MainFragment extends Fragment {
         this.Meetings = new ArrayList<>();
         Injection.getMeetingApiService().getMeetings();
         this.Meetings=Injection.getMeetingApiService().getMeetings();
-        // 3.2 - Create adapter passing the list of users
+        // 3.2 - Create adapter passing the list of meetings
         this.adapter = new MeetingRecycleViewAdapter(this.Meetings);
         // 3.3 - Attach the adapter to the recyclerview to populate items
         this.recyclerView.setAdapter(this.adapter);
@@ -153,35 +152,73 @@ public class MainFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+    // -------------------
+    // DELETE MEETING
+    // -------------------
 
-@Subscribe
-
-public void onDeleteMeeting(DeleteMeetingEvent event){
+    @Subscribe
+    public void onDeleteMeeting(DeleteMeetingEvent event){
     MeetingApiService meetingApiService = Injection.getMeetingApiService();
     meetingApiService.deleteMeeting(event.meeting);
     this.Meetings=Injection.getMeetingApiService().getMeetings();
     updateUI(this.Meetings);
     }
 
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++
     // -------------------
-    // SORT BY ...
+    // SORT MEETINGS
     // -------------------
 
+    @Subscribe
+    public void onSortMeetingsByName (SortMeetingByNameEvent eventSortname){
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();
+        meetingApiService.sortMeetingsByName();
+        this.Meetings=Injection.getMeetingApiService().getMeetings();
+        updateUI(this.Meetings);
+    };
 
 
-public boolean onOptionsItemSelected(MenuItem item) {
+    @Subscribe
+    public void onSortMeetingsBydate (SortMeetingByDateEvent eventSortdate){
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();
+        meetingApiService.sortMeetingsByDate();
+        this.Meetings=Injection.getMeetingApiService().getMeetings();
+        updateUI(this.Meetings);
+    };
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+public static class SortMeetings {
 
 
+    public enum SortMethods{
 
-    switch (item.getItemId()){
-        case R.id.menu_sort_by_name:
-            Toast.makeText(getContext(), "menu_sort_by_name", Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.menu_sort_by_date:
-            Toast.makeText(getContext(), "menu_sort_by_date", Toast.LENGTH_SHORT).show();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+        DATE_ORDER,
+        NAME_ORDER
+
+    }
+
+    public List<MeetingModel> nameOrder(List<MeetingModel> meetings){
+
+        Collections.sort(meetings, new Comparator<MeetingModel>() {
+            @Override
+            public int compare(MeetingModel a, MeetingModel b) {
+                return a.getName().compareTo(b.getName());
+            }
+        });
+
+        return meetings;
+    }
+
+
+    public List<MeetingModel> dateOrder(List<MeetingModel> meetings){
+
+        Collections.sort(meetings, new Comparator<MeetingModel>() {
+            @Override
+            public int compare(MeetingModel a, MeetingModel b) {
+                return a.getHour().compareTo(b.getHour());
+            }
+        });
+        return meetings;
     }
 }
 

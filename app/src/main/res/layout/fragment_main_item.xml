@@ -110,7 +110,7 @@
         <TextView
             android:id="@+id/emailsInput"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
 
             android:layout_weight="1"
 
@@ -120,6 +120,27 @@
 
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/participant_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/textView_expanded_particicipant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:text="TextView" />
+
+    <ImageButton
+        android:id="@+id/expand_participant_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 
 </LinearLayout>

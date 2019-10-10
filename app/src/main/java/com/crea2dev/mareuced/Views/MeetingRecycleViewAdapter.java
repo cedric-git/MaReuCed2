@@ -42,6 +42,8 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
     @BindView(R.id.placeInput) TextView mPlace;
     @BindView(R.id.emailsInput) TextView mMail;
     @BindView(R.id.item_list_delete_button) ImageButton mDeleteButton;
+    @BindView(R.id.expand_participant_Button) Button mExpand_participant_Button;
+    @BindView(R.id.textView_expanded_particicipant) TextView mTextView_expanded_particicipant;
 
     private ImageView imageView;
         private TextView titleTextView;
@@ -119,34 +121,15 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
             super(view);
             ButterKnife.bind(this, view);
 
+            mExpand_participant_Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mTextView_expanded_particicipant.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
     }
-
-//     Replace the contents of a view (invoked by the layout manager)
-//    @Override
-//    public void onBindViewHolder(@NonNull MeetingViewHolder holder, int i) {
-//        public void onBindViewHolder (@NonNull MeetingsViewHolder holder,final int i){
-//
-//            holder.imageView.setImageResource(R.drawable.ic_launcher_background);
-//            holder.titleTextView.setText(mMeetings.get(i).getName());
-//            holder.mailsTextView.setText(mMeetings.get(i).getMails());
-//
-//            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //Using our EventBus library to communicate. Publish
-//                    EventBus.getDefault().post(new DeleteMeetingEvent(mMeetings.get(i)));
-//                }
-//            });
-//        }
-//    }
-//
-//                MeetingViewHolder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-//        }
-//    });
 
 
 }

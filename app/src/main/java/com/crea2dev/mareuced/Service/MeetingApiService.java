@@ -1,7 +1,8 @@
 package com.crea2dev.mareuced.Service;
 import com.crea2dev.mareuced.Model.MeetingModel;
+import com.crea2dev.mareuced.utils.SortMeetings;
 
-        import java.util.List;
+import java.util.List;
 
 public interface MeetingApiService {
 
@@ -16,6 +17,9 @@ public interface MeetingApiService {
 
     void addMeeting(MeetingModel meeting);
 
+    void sortMeetingsByName(); // ++++++++++++++++++++++++
+
+    void sortMeetingsByDate(); // ++++++++++++++++++++++++
 }
 
 

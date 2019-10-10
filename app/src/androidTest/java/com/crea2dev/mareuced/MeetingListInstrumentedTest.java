@@ -4,11 +4,11 @@ import android.content.Context;
 
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.platform.app.InstrumentationRegistry;
-//import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.crea2dev.mareuced.Service.Injection;
 import com.crea2dev.mareuced.Service.MeetingApiService;
-import com.crea2dev.mareuced.ui.main.MainViewModel;
+
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -26,15 +26,17 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-//@RunWith(AndroidJUnit4.class)
-public class MeetingListInstrumentedList {
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+@RunWith(AndroidJUnit4.class)
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+public class MeetingListInstrumentedTest {
 
     @Rule
-//    public ActivityTestRule<MainActivity_MeetingList> mActivityRule = new ActivityTestRule<>(MainActivity_MeetingList.class);
+    public ActivityTestRule<MainActivity_MeetingList> mActivityRule = new ActivityTestRule<>(MainActivity_MeetingList.class);
 
     private int currentMeetingsSize = 3;
     private MeetingApiService mApiService;
-    private MainViewModel mViewModel;
 
     @Before
     public void setup(){
@@ -42,6 +44,7 @@ public class MeetingListInstrumentedList {
 //        mActivityRule.getActivity();
         currentMeetingsSize = mApiService.getMeetings().size();
     }
+
     @Test
     public void AddMeeting_With_Success(){
 
@@ -55,13 +58,19 @@ public class MeetingListInstrumentedList {
         onView(withId(R.id.button_add_meeting)).perform(click());
 
         //Check Meetings list counts one more
-//        onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize + 1));
+        onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize + 1));
     }
+
+//    @Test
+//        public void check_Delete_Meeting_Button(){
+//            onView(withId(R.id.fragment_main_recycler_view))
+//                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
+//            onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new RecyclerViewUtils.ItemCount(currentMeetingsSize - 1));
+//        }
 
     @Test
-    public void Delete_Meeting_WithSuccess(){
+    public void check_Add_Meeting_Button() {
     }
-
 
     @Test
     public void useAppContext() {
@@ -71,4 +80,3 @@ public class MeetingListInstrumentedList {
         assertEquals("com.crea2dev.mareuced", appContext.getPackageName());
     }
 }
-

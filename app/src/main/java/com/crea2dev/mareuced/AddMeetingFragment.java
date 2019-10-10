@@ -86,21 +86,18 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     @Override
                     public void onClick(View v) {
 
-
-
 //                        gerer le format d'heure
 
                         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
                         String timeField = mNewMeeting_Time.getEditText().getText().toString();
 
-                        try {
-                            Date formatedTime = sdf.parse(timeField);
-                            System.out.println(formatedTime);
-                        } catch (ParseException e) {
-//                            toast le format est iuncorrect
-                            System.out.println("Exception=====================================");
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            Date formatedTime = sdf.parse(timeField);
+//                            System.out.println(formatedTime);
+//                        } catch (ParseException e) {
+//                            Toast.makeText(getContext(), "Incorrect date format", Toast.LENGTH_SHORT).show();
+//                            e.printStackTrace();
+//                        }
 
 
 //                        empecher les champs vides
@@ -110,14 +107,15 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                                  && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
 
                         {
-                            mMeeting = new MeetingModel(
-                                    mNewMeeting_Name.getEditText().getText().toString(),
-                                    mNewMeeting_Time.getEditText().getText().toString(),
-                                    mNewMeeting_Place.getEditText().getText().toString(),
-                                    mDisplayParticipantList.getText().toString()
-
-
-                            );
+//                            mMeeting = new MeetingModel(
+//                                    mNewMeeting_Name.getEditText().getText().toString(),
+//                                    mNewMeeting_Time.getEditText().getText().toString(),
+////                                    formatedTime : peut remplacer la ligne precedente
+//                                    mNewMeeting_Place.getEditText().getText().toString(),
+//                                    mDisplayParticipantList.getText().toString()
+////                                    participants : peut remplacer la ligne precedente
+//
+//                            );
 
 
                             Injection.getMeetingApiService().addMeeting(mMeeting);
@@ -152,7 +150,9 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
 
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
                         newParticipant = newParticipant + inputParticipant+" ,"+newLine;
+
                         participants.add(newParticipant);
+                        System.out.println(participants);
 
                         mDisplayParticipantList.setText(newParticipant);
 //                        mDisplayParticipantList.setText(participants);
@@ -185,12 +185,7 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                         }
                         mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
 
-//                        String mDate = TimeConverting.getTimeFromDate(hourOfDay.getValue() + ":" + minutes.getValue());
-
-//todo : enregistrer l'heure dans une variable (PUBLIC ?) +++++++++++++++++++++++++
-
                         hourChoosen = hourOfDay;
-
                         Toast.makeText(getContext(), Integer.toString(hourChoosen), Toast.LENGTH_LONG).show();
 //                        String Heure_String;
 //                        mNewMeeting_Time_To_Record = hourOfDay;
@@ -218,19 +213,6 @@ String newEmail;
                 return newEmail;
             }
 
-//@Override
-public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//    super.onViewCreated(view, savedInstanceState);
-
-//    mNameEdit = view.findViewById(R.id.nameInput);
-
-    //Set pickers
-
-
-//    mMeetingViewModel = ViewModelProviders.of(this).get(MeetingViewModel.class);
-
-    mValidateButton.setOnClickListener(onClickListener);
-}
 
 OnClickListener onClickListener = new OnClickListener() {
     @Override
@@ -245,19 +227,13 @@ OnClickListener onClickListener = new OnClickListener() {
 //    }
 };
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         });
-
-
         return view;
-
     }
 
     @Override
     public void onClick(View v) {
-
     }
 }
 
