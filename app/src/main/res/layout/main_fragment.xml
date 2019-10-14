@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/FABaddMeeting"
+        android:id="@+id/FAB_add_Meeting"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginEnd="10dp"

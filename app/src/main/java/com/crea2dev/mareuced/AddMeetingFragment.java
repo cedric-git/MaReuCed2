@@ -107,15 +107,15 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                                  && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
 
                         {
-//                            mMeeting = new MeetingModel(
-//                                    mNewMeeting_Name.getEditText().getText().toString(),
-//                                    mNewMeeting_Time.getEditText().getText().toString(),
-////                                    formatedTime : peut remplacer la ligne precedente
-//                                    mNewMeeting_Place.getEditText().getText().toString(),
-//                                    mDisplayParticipantList.getText().toString()
-////                                    participants : peut remplacer la ligne precedente
-//
-//                            );
+                            mMeeting = new MeetingModel(
+                                    mNewMeeting_Name.getEditText().getText().toString(),
+                                    mNewMeeting_Time.getEditText().getText().toString(),
+//                                    formatedTime : peut remplacer la ligne precedente
+                                    mNewMeeting_Place.getEditText().getText().toString(),
+                                    mDisplayParticipantList.getText().toString()
+//                                    participants : peut remplacer la ligne precedente
+
+                            );
 
 
                             Injection.getMeetingApiService().addMeeting(mMeeting);

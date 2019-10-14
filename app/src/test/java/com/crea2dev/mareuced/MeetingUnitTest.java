@@ -55,10 +55,41 @@ public class MeetingUnitTest {
 
     @Test
     public void sortMeetings_BY_NAME_WithSuccess() {
+        MeetingModel m1 = new MeetingModel("1 Reunion 1", "15:00PM", "Salle 7", "zoe@gmail.com");
+        MeetingModel m2 = new MeetingModel("2 Reunion 2",  "14:00PM", "Salle 3", "bob@gmail.com");
+        MeetingModel m3 = new MeetingModel("3 Reunion 3", "16:00PM", "Amphi", "ced@gmail.com");
+
+
+        List<MeetingModel> meetings = new ArrayList<>();
+        meetings.add(m1);
+        meetings.add(m3);
+        meetings.add(m2);
+
+        SortMeetings.nameOrder(meetings);
+
+        assertSame(m1, meetings.get(0));
+        assertSame(m2, meetings.get(1));
+        assertSame(m3, meetings.get(2));
     }
 
     @Test
     public void sortMeetings_BY_DATE_WithSuccess() {
+
+
+        MeetingModel m1 = new MeetingModel("1 Reunion 1", "15:00PM", "Salle 7", "zoe@gmail.com");
+        MeetingModel m2 = new MeetingModel("2 Reunion 2",  "16:00PM", "Salle 3", "bob@gmail.com");
+        MeetingModel m3 = new MeetingModel("3 Reunion 3", "17:00PM", "Amphi", "ced@gmail.com");
+
+        List<MeetingModel> meetings = new ArrayList<>();
+        meetings.add(m3);
+        meetings.add(m2);
+        meetings.add(m1);
+
+        SortMeetings.dateOrder(meetings);
+
+        assertSame(m1, meetings.get(0));
+        assertSame(m2, meetings.get(1));
+        assertSame(m3, meetings.get(2));
     }
 
 }

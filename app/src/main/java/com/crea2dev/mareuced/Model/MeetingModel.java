@@ -12,8 +12,8 @@ public class MeetingModel {
         private ArrayList participantsList;
 
 //
-    public MeetingModel(String name, String hour, String place, String mails, ArrayList participantsList) {
-//    public MeetingModel(String name, String hour, String place, String mails) {
+//    public MeetingModel(String name, String hour, String place, String mails, ArrayList participantsList) {
+    public MeetingModel(String name, String hour, String place, String mails) {
             this.name = name;
             this.hour = hour;
             this.place = place;
@@ -49,7 +49,11 @@ public class MeetingModel {
             this.mails = mails;
         }
 
-        public ArrayList getParticipantsList() {return participantsList; }
-        public void setParticipantsList(ArrayList participantsList) { this.participantsList = participantsList; }
+        public ArrayList getParticipantsList()
+        {return participantsList; }
+
+        public void setParticipantsList(ArrayList participantsList) {
+        this.participantsList = participantsList;
+        }
 }
 

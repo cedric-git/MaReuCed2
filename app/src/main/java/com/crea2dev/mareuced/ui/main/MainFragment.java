@@ -80,7 +80,7 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, view);
         this.configureRecyclerView(); // - 4 Call during UI creation
 
-        fab = (FloatingActionButton) view.findViewById(R.id.FABaddMeeting);
+        fab = (FloatingActionButton) view.findViewById(R.id.FAB_add_Meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,7 @@ package com.crea2dev.mareuced.Views;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,6 +23,7 @@ import com.crea2dev.mareuced.utils.SortMeetings;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import java.util.function.ToDoubleBiFunction;
 
 import butterknife.ButterKnife;
@@ -45,25 +47,37 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
     public MeetingModel mMeeting;
     public MeetingApiService meetingApiService;
 
-
     public MeetingViewHolder(View itemView) {
-
-
         super(itemView);
         ButterKnife.bind(this, itemView);
+
+
 
         mDeleteButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 EventBus.getDefault().post(new DeleteMeetingEvent(mMeeting));
-
             }
         });
 
 //        Creer adater pour list itemView
 //                new
 //                        list view.set adapter
+
+        ListView mListView;
+        String[] prenoms = new String[]{
+                "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
+                "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
+                "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
+                "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
+                "Yann", "Zoé"
+        };
+//
+//        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prenoms);
+//        ListView listView = (ListView) findViewById(R.id.participant_ListView);
+//        listView.setAdapter(itemsAdapter);
+
+
 
 //        public void setSortingOrder(SortMeetings.SortMethods sortingOrder) {
 //
@@ -80,11 +94,23 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
 
     }
 
+//    private ListView mListView;
+//    private String[] prenoms = new String[]{
+//            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
+//            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
+//            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
+//            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
+//            "Yann", "Zoé"
+//    };
+
+
+
     public void updateWithMeeting(MeetingModel meeting){
         this.mName.setText(meeting.getName());
         this.mHour.setText(meeting.getHour());
         this.mPlace.setText(meeting.getPlace());
         this.mMail.setText(meeting.getMails());
+//        this.mListview.setText(meeting.getParticipantsList());
 
         mMeeting = meeting;
     }
