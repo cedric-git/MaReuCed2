@@ -51,15 +51,6 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
         private TextView hourTextView;
         private ImageButton deleteButton;
 
-//    public MeetingsViewHolder(@NonNull View itemView) {
-//        super(itemView);
-//
-////        imageView = itemView.findViewById(R.id.imageView_item_meeting);
-////        titleTextView = itemView.findViewById(R.id.textView_item_main);
-//        mailsTextView = itemView.findViewById(R.id.emailsInput);
-//        hourTextView = itemView.findViewById(R.id.hourInput);
-//        deleteButton = itemView.findViewById(R.id.item_list_delete_button);
-//    }
 
     // FOR DATA
     private List<MeetingModel> mMeetings;
@@ -85,19 +76,6 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
     public void onBindViewHolder(final MeetingViewHolder viewHolder, final int position) {
         viewHolder.updateWithMeeting(this.mMeetings.get(position));
 
-
-
-//        MeetingViewHolder.imageView.setImageResource(R.drawable.ic_launcher_background);
-//        MeetingViewHolder.titleTextView.setText(mMeetings.get(position).getName());
-//        MeetingViewHolder.setText(mMeetings.get(position).getMails());
-//
-//            MeetingViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //Using our EventBus library to communicate. Publish
-//                    EventBus.getDefault().post(new DeleteMeetingEvent(mMeetings.get(position)));
-//                }
-//            });
 
 
     }

@@ -60,50 +60,12 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
             }
         });
 
-//        Creer adater pour list itemView
-//                new
-//                        list view.set adapter
-
-        ListView mListView;
-        String[] prenoms = new String[]{
-                "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-                "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-                "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-                "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-                "Yann", "Zoé"
-        };
 //
 //        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prenoms);
 //        ListView listView = (ListView) findViewById(R.id.participant_ListView);
 //        listView.setAdapter(itemsAdapter);
 
-
-
-//        public void setSortingOrder(SortMeetings.SortMethods sortingOrder) {
-//
-//            switch (sortingOrder){
-//                case DATE_ORDER:
-//                    mMeetings.setValue(SortMeetings.dateOrder(mMeetingRepository.getMeetings()));
-//                    break;
-//                case NAME_ORDER:
-//                    mMeetings.setValue(SortMeetings.nameOrder(mMeetingRepository.getMeetings()));
-//                    break;
-//
-//            }
-//        }
-
     }
-
-//    private ListView mListView;
-//    private String[] prenoms = new String[]{
-//            "Antoine", "Benoit", "Cyril", "David", "Eloise", "Florent",
-//            "Gerard", "Hugo", "Ingrid", "Jonathan", "Kevin", "Logan",
-//            "Mathieu", "Noemie", "Olivia", "Philippe", "Quentin", "Romain",
-//            "Sophie", "Tristan", "Ulric", "Vincent", "Willy", "Xavier",
-//            "Yann", "Zoé"
-//    };
-
-
 
     public void updateWithMeeting(MeetingModel meeting){
         this.mName.setText(meeting.getName());
@@ -119,25 +81,5 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
     public void onClick(View view) {
 
     }
-//@Override
-//       mMail.setOnClickListener(
-//               new OnClickListener() {
-//
-//        @Override
-//        public void onClick(View v) {
-//            Toast.makeText(getContext(), "liste cliquee", Toast.LENGTH_SHORT).show();
-//        }
-//    });
 
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-////        switch (item.getItemId()){
-////            case R.id.menu_sort_by_name:
-////                Toast.makeText(MainActivity_MeetingList, "Field missing", Toast.LENGTH_SHORT).show();
-////            case R.id.menu_sort_by_date:
-////                Toast.makeText(getContext(), "Field missing", Toast.LENGTH_SHORT).show();
-////            default:
-////                return super.onOptionsItemSelected(item);
-////        }
-//    }
 }
