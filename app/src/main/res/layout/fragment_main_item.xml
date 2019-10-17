@@ -122,7 +122,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/participant_ListView"
+        android:id="@+id/displayParticipants"
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:layout_weight="1" />

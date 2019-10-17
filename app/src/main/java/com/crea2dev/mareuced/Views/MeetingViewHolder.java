@@ -42,7 +42,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
     @BindView(R.id.placeInput) TextView mPlace;
     @BindView(R.id.emailsInput) TextView mMail;
     @BindView(R.id.item_list_delete_button) ImageButton mDeleteButton;
-    @BindView(R.id.participant_ListView) ListView mListview;
+//    @BindView(R.id.participant_ListView) ListView mListview;
 
     public MeetingModel mMeeting;
     public MeetingApiService meetingApiService;

@@ -6,21 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Service.Injection;
-import com.crea2dev.mareuced.utils.TimeConverting;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParseException;
@@ -49,8 +46,11 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
     @BindView(R.id.newMeeting_Participants) TextInputLayout mNewMeeting_Participants;
     @BindView(R.id.button_add_meeting) Button mValidateButton;
     @BindView(R.id.button_add_participant) Button mAddParticipantButton;
-    @BindView(R.id.display_participant_list_text_view) TextView mDisplayParticipantList;
+    @BindView(R.id.display_participant_list_text_view) TextView mDisplayParticipantListTesxtView;
 
+//  @BindView(R.id.display_participant_list_list_view) TextView mDisplay_participant_list_list_view;
+
+//    @BindView(R.id.displayParticipants) ListView mDisplayParticipantList_on_item_list;
 
 //    private Button mValidateButton;
 
@@ -58,9 +58,9 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
     }
     private MeetingModel mMeeting;
 
-    //create object of listview
-//    ListView listView=(ListView)findViewById(R.id.listview);
-    @BindView(R.id.listview) ListView listView;
+//    create object of listview
+//    ListView listView_of_add_meeting=(ListView)findViewById(R.id.listview);
+//    @BindView(R.id.listview_added) ListView listView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,69 +75,62 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
 
+
+
         //================================ SAVE MEETING
-
-
-//
-//todo : recuperer tous les champs et les additionner a la liste de MeetingModel : meetings
 
         mValidateButton.setOnClickListener(
                 new OnClickListener(){
                     @Override
                     public void onClick(View v) {
-
 //                        gerer le format d'heure
-
                         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
                         String timeField = mNewMeeting_Time.getEditText().getText().toString();
 
-//                        try {
-//                            Date formatedTime = sdf.parse(timeField);
-//                            System.out.println(formatedTime);
-//                        } catch (ParseException e) {
-//                            Toast.makeText(getContext(), "Incorrect date format", Toast.LENGTH_SHORT).show();
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            Date formatedTime = sdf.parse(timeField);
+                            System.out.println(formatedTime);
+                        } catch (ParseException e) {
+                            Toast.makeText(getContext(), "Incorrect date format", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
 
 
-//                        empecher les champs vides
-                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
+                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("") //empecher les champs vides
                                  && !mNewMeeting_Time.getEditText().getText().toString().equals("")
-                                 && !mDisplayParticipantList.getText().toString().equals("")
+                                 && !mDisplayParticipantListTesxtView.getText().toString().equals("")
                                  && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
 
                         {
                             mMeeting = new MeetingModel(
                                     mNewMeeting_Name.getEditText().getText().toString(),
                                     mNewMeeting_Time.getEditText().getText().toString(),
-//                                    formatedTime : peut remplacer la ligne precedente
+//                                    formatedTime, //: peut remplacer la ligne precedente
                                     mNewMeeting_Place.getEditText().getText().toString(),
-                                    mDisplayParticipantList.getText().toString()
+                                    mDisplayParticipantListTesxtView.getText().toString()
 //                                    participants : peut remplacer la ligne precedente
-
                             );
-
 
                             Injection.getMeetingApiService().addMeeting(mMeeting);
                             getActivity().finish();
                         } else {
                             Toast.makeText(getContext(), "Field missing", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                     });
 
         //================================ ADD PARTICIPANTS
-//todo : a chaque appuis sur ADD PARTICIPANT, l'email renseigne est ajoute a une arraylist
-//       et displayed dans la TextView au dessous (entraine son update a chaque click ?)
+
+//a chaque appuis sur ADD PARTICIPANT, l'email renseigne est ajoute a une arraylist et l'affiche dans la TextView au dessous
 
 
 //create ArrayList of String
         final ArrayList participants = new ArrayList();
-
-//        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, participants);
-
-//assign adapter to listview
+//
+//        //================================= ADAPTER LISTVIEW
+////        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, participants);
+//        ArrayAdapter arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.mDisplayParticipantList_on_item_list, participants);
+//        ListView listView = (ListView) findViewById(R.id.displayParticipants);
 //        listView.setAdapter(arrayAdapter);
 
 
@@ -149,13 +142,13 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     public void onClick(View v) {
 
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
-                        newParticipant = newParticipant + inputParticipant+" ,"+newLine;
+                        newParticipant = newParticipant + inputParticipant+"\n" ;
 
-                        participants.add(newParticipant);
+                        participants.add(newParticipant);//rempli le tableau de PARTICIPANTS
                         System.out.println(participants);
 
-                        mDisplayParticipantList.setText(newParticipant);
-//                        mDisplayParticipantList.setText(participants);
+                        mDisplayParticipantListTesxtView.setText(newParticipant);
+
 
 //                        Toast.makeText(getContext(), inputParticipant, Toast.LENGTH_SHORT).show();
                         mNewMeeting_Participants.getEditText().getText().clear();
