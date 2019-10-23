@@ -1,7 +1,7 @@
 # MaReuCed
 
-Principal langage utilisé pour développer des applications mobiles
-Large communauté et support
+#Principal langage utilisé pour développer des applications mobiles
+#Large communauté et support
 9 millions de développeurs Java dans le monde  
 Java est rapide, sécurisé et fiable  
 Stabilité et de sécurité  
