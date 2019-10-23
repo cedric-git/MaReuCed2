@@ -1,18 +1,17 @@
 package com.crea2dev.mareuced.utils;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class SortMeetings {
 
-
     public enum SortMethods{
 
         DATE_ORDER,
         NAME_ORDER
+//        PLACE_ORDER
 
     }
 
@@ -35,6 +34,17 @@ public class SortMeetings {
             @Override
             public int compare(MeetingModel a, MeetingModel b) {
                 return a.getHour().compareTo(b.getHour());
+            }
+        });
+        return meetings;
+    }
+
+    public static List<MeetingModel> placeOrder(List<MeetingModel> meetings){
+
+        Collections.sort(meetings, new Comparator<MeetingModel>() {
+            @Override
+            public int compare(MeetingModel a, MeetingModel b) {
+                return a.getPlace().compareTo(b.getPlace());
             }
         });
         return meetings;

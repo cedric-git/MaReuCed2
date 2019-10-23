@@ -1,18 +1,12 @@
 package com.crea2dev.mareuced.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-//import android.support.v7.app.AppCompatActivity;
 import com.crea2dev.mareuced.AddMeetingActivity;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
@@ -20,46 +14,28 @@ import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Service.MeetingApiService;
 import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-
 public class MainFragment extends Fragment {
-
-
 
     // FOR DESIGN
     @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView; // 1 - Declare RecyclerView
-//    @BindView(R.id.FABaddMeeting)
-//    public android.support.design.widget.FloatingActionButton mFavFab;
-    private FloatingActionButton mCreateMeetingFloatingActionButton;
+
     private FloatingActionButton fab;
 
-
-
-    private MainViewModel mViewModel;
-
     //FOR DATA
-//    private Disposable disposable;
+
     // 2 - Declare list of users (GithubUser) & Adapter
     private List<MeetingModel> Meetings;
     private MeetingRecycleViewAdapter adapter;
@@ -76,11 +52,10 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
-
         ButterKnife.bind(this, view);
         this.configureRecyclerView(); // - 4 Call during UI creation
 
-        fab = (FloatingActionButton) view.findViewById(R.id.FAB_add_Meeting);
+        fab = view.findViewById(R.id.FAB_add_Meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +64,6 @@ public class MainFragment extends Fragment {
         });
 
         return view;
-
     }
 
     @Override
@@ -97,16 +71,10 @@ public class MainFragment extends Fragment {
         super.onDestroy();
     }
 
-
-//*****************************************************
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        // TODO: Use the ViewModel
     }
-//******************************************************
-
 
     // -----------------
     // CONFIGURATION
@@ -126,7 +94,6 @@ public class MainFragment extends Fragment {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
-
     // -------------------
     // UPDATE UI
     // -------------------
@@ -144,7 +111,7 @@ public class MainFragment extends Fragment {
 
     this.Meetings=Injection.getMeetingApiService().getMeetings();
         updateUI(this.Meetings);
-}
+    }
 
     @Override
     public void onStop() {
@@ -164,7 +131,6 @@ public class MainFragment extends Fragment {
     updateUI(this.Meetings);
     }
 
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++
     // -------------------
     // SORT MEETINGS
     // -------------------
@@ -177,7 +143,6 @@ public class MainFragment extends Fragment {
         updateUI(this.Meetings);
     };
 
-
     @Subscribe
     public void onSortMeetingsBydate (SortMeetingByDateEvent eventSortdate){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();
@@ -185,42 +150,12 @@ public class MainFragment extends Fragment {
         this.Meetings=Injection.getMeetingApiService().getMeetings();
         updateUI(this.Meetings);
     };
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-public static class SortMeetings {
-
-
-    public enum SortMethods{
-
-        DATE_ORDER,
-        NAME_ORDER
-
-    }
-
-    public List<MeetingModel> nameOrder(List<MeetingModel> meetings){
-
-        Collections.sort(meetings, new Comparator<MeetingModel>() {
-            @Override
-            public int compare(MeetingModel a, MeetingModel b) {
-                return a.getName().compareTo(b.getName());
-            }
-        });
-
-        return meetings;
-    }
-
-
-    public List<MeetingModel> dateOrder(List<MeetingModel> meetings){
-
-        Collections.sort(meetings, new Comparator<MeetingModel>() {
-            @Override
-            public int compare(MeetingModel a, MeetingModel b) {
-                return a.getHour().compareTo(b.getHour());
-            }
-        });
-        return meetings;
-    }
-}
-
-
+    @Subscribe
+    public void onSortMeetingsByPlace (SortMeetingByDateEvent eventSortplace){
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();
+        meetingApiService.sortMeetingsByPlace();
+        this.Meetings=Injection.getMeetingApiService().getMeetings();
+        updateUI(this.Meetings);
+    };
 }

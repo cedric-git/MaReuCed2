@@ -1,48 +1,27 @@
 package com.crea2dev.mareuced.Views;
 
 
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Service.MeetingApiService;
-import com.crea2dev.mareuced.Service.Injection;
-
 import com.crea2dev.mareuced.R;
-import com.crea2dev.mareuced.repositories.MeetingRepository;
-import com.crea2dev.mareuced.utils.SortMeetings;
-
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
-import java.util.function.ToDoubleBiFunction;
-
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-import static com.crea2dev.mareuced.utils.SortMeetings.SortMethods.DATE_ORDER;
-import static com.crea2dev.mareuced.utils.SortMeetings.SortMethods.NAME_ORDER;
-import static java.security.AccessController.getContext;
-
 public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    private MeetingRepository mMeetingRepository;
 
     @BindView(R.id.nameInput) TextView mName;
     @BindView(R.id.hourInput) TextView mHour;
     @BindView(R.id.placeInput) TextView mPlace;
-    @BindView(R.id.emailsInput) TextView mMail;
     @BindView(R.id.item_list_delete_button) ImageButton mDeleteButton;
-//    @BindView(R.id.participant_ListView) ListView mListview;
+    @BindView(R.id.button_show_hide_participants) Button mButton_show_hide_participants;
+    @BindView(R.id.participants_text) TextView mParticipants;
 
     public MeetingModel mMeeting;
     public MeetingApiService meetingApiService;
@@ -51,8 +30,6 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-
-
         mDeleteButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,26 +37,30 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
             }
         });
 
-//
-//        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, prenoms);
-//        ListView listView = (ListView) findViewById(R.id.participant_ListView);
-//        listView.setAdapter(itemsAdapter);
-
+        mButton_show_hide_participants.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandOrCollapseMeetingDetails();
+            }
+            private void expandOrCollapseMeetingDetails() {
+                if (mParticipants.getVisibility() == View.GONE) {
+                    mParticipants.setVisibility(View.VISIBLE);
+                } else {
+                    mParticipants.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     public void updateWithMeeting(MeetingModel meeting){
         this.mName.setText(meeting.getName());
         this.mHour.setText(meeting.getHour());
         this.mPlace.setText(meeting.getPlace());
-        this.mMail.setText(meeting.getMails());
-//        this.mListview.setText(meeting.getParticipantsList());
-
+        this.mParticipants.setText(meeting.getMails());
         mMeeting = meeting;
     }
 
     @Override
     public void onClick(View view) {
-
     }
-
 }
