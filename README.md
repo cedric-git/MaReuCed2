@@ -1,5 +1,6 @@
 # MaReuCed
 
+<<<<<<< HEAD
 Choix du language : Java  
 
 Principal langage utilisé pour développer des applications mobiles
@@ -18,3 +19,5 @@ Le garage collector permet de gérer les fuites de mémoire : amélioration des 
 Choix n° 1 des développeurs
 Plate-forme de développement n° 1
 3 milliards de téléphones mobiles exécutent Java  
+=======
+>>>>>>> origin/master
