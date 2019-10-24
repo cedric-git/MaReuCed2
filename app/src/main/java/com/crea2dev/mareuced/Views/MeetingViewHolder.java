@@ -40,9 +40,9 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
         mButton_show_hide_participants.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                expandOrCollapseMeetingDetails();
+                ShowHideParticipantsPanel();
             }
-            private void expandOrCollapseMeetingDetails() {
+            private void ShowHideParticipantsPanel() {
                 if (mParticipants.getVisibility() == View.GONE) {
                     mParticipants.setVisibility(View.VISIBLE);
                 } else {

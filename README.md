@@ -15,7 +15,7 @@ Langage éprouvé
 Compilé, multi-tâches et dynamique
 Simple, orienté objet et familier ;
 Robuste et sûr ;
-Le garage collector permet de gérer les fuites de mémoire : amélioration des performances
+Le garbage collector permet de gérer les fuites de mémoire : amélioration des performances
 Choix n° 1 des développeurs
 Plate-forme de développement n° 1
 3 milliards de téléphones mobiles exécutent Java  

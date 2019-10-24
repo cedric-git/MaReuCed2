@@ -7,13 +7,13 @@ import java.util.List;
 
 public class SortMeetings {
 
-    public enum SortMethods{
-
-        DATE_ORDER,
-        NAME_ORDER
-//        PLACE_ORDER
-
-    }
+//    public enum SortMethods{
+//
+//        DATE_ORDER,
+//        NAME_ORDER
+////        PLACE_ORDER
+//
+//    }
 
     public static List<MeetingModel> nameOrder(List<MeetingModel> meetings){
 
@@ -26,7 +26,6 @@ public class SortMeetings {
 
         return meetings;
     }
-
 
     public static List<MeetingModel> dateOrder(List<MeetingModel> meetings){
 

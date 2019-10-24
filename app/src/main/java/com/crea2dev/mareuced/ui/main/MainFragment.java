@@ -11,6 +11,7 @@ import com.crea2dev.mareuced.AddMeetingActivity;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
+import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Service.MeetingApiService;
 import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -152,7 +153,7 @@ public class MainFragment extends Fragment {
     };
 
     @Subscribe
-    public void onSortMeetingsByPlace (SortMeetingByDateEvent eventSortplace){
+    public void onSortMeetingsByPlace (SortMeetingByPlaceEvent eventSortplace){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();
         meetingApiService.sortMeetingsByPlace();
         this.Meetings=Injection.getMeetingApiService().getMeetings();
