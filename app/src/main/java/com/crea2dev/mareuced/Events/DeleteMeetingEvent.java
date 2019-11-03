@@ -4,23 +4,23 @@ import com.crea2dev.mareuced.Model.MeetingModel;
 
 
 
+/**
+ * Event fired when a user deletes a Meeting
+ */
+public class DeleteMeetingEvent {
+
     /**
-     * Event fired when a user deletes a Meeting
+     * Meeting to delete
      */
-    public class DeleteMeetingEvent {
+    public MeetingModel meeting;
 
-        /**
-         * Meeting to delete
-         */
-        public MeetingModel meeting;
-
-        /**
-         * Constructor.
-         * @param meeting
-         */
-        public DeleteMeetingEvent(MeetingModel meeting) {
-            this.meeting = meeting;
-        }
+    /**
+     * Constructor.
+     * @param meeting
+     */
+    public DeleteMeetingEvent(MeetingModel meeting) {
+        this.meeting = meeting;
     }
+}
 
 

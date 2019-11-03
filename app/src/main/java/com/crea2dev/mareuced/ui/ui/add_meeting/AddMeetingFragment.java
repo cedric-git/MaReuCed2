@@ -1,40 +1,29 @@
-package com.crea2dev.mareuced;
+package com.crea2dev.mareuced.ui.ui.add_meeting;
 
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.fragment.app.DialogFragment;
-
 import com.crea2dev.mareuced.Model.MeetingModel;
+import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddMeetingFragment extends DialogFragment implements OnClickListener {
 
-    int hourChoosen;
-    EditText chooseTime;
     TimePickerDialog timePickerDialog;
-    Calendar calendar;
     int currentHour;
     int currentMinute;
     String amPm;
@@ -70,38 +59,35 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
         mValidateButton.setOnClickListener(
                 new OnClickListener(){
                     @Override
-                    public void onClick(View v) {
-//                      gerer le format d'heure
-                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
-                        String timeField = mNewMeeting_Time.getEditText().getText().toString();
-                        try {
-                            Date formatedTime = sdf.parse(timeField);
-                            System.out.println(formatedTime);
-                        } catch (ParseException e) {
-//                            Toast.makeText(getContext(), "Incorrect date format", Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-
-                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("") //empecher les champs vides
+                    public void onClick(View v) {   //  avoid missing fileds
+                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
                                  && !mNewMeeting_Time.getEditText().getText().toString().equals("")
-                                 && !mDisplayParticipantListTesxtView.getText().toString().equals("")
+                                 && !mDisplayParticipantListTesxtView.getText().toString().equals("Participant's list")
                                  && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
                         {
-                            mMeeting = new MeetingModel(
+
+                            mMeeting = new MeetingModel(    //  get meeting data
                                     mNewMeeting_Name.getEditText().getText().toString(),
                                     mNewMeeting_Time.getEditText().getText().toString(),
-//                                    formatedTime, //: peut remplacer la ligne precedente
                                     mNewMeeting_Place.getEditText().getText().toString(),
                                     mDisplayParticipantListTesxtView.getText().toString()
                             );
 
-                            Injection.getMeetingApiService().addMeeting(mMeeting);
+                            Injection.getMeetingApiService().addMeeting(mMeeting);  // add meeeting
                             getActivity().finish();
                         } else {
-                            Toast.makeText(getContext(), "Field missing", Toast.LENGTH_SHORT).show();
+
+                        // Missing field(s) toast
+                            Toast toast= Toast.makeText(getActivity(), Html.fromHtml("<big><b>WARNING : Field(s) missing !</b>"), Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 300);
+                            TextView toastMessage=(TextView) toast.getView().findViewById(android.R.id.message);
+                            toastMessage.setTextColor(Color.RED);
+
+                            toast.show();
+
                         }
                     }
-                    });
+                });
 
         //================================ ADD PARTICIPANTS
 
@@ -111,9 +97,10 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
 
                     @Override
                     public void onClick(View v) {
-
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
                         newParticipant = newParticipant + inputParticipant+"\n" ;
+
+                        // display participants added in textview below
                         mDisplayParticipantListTesxtView.setText(newParticipant);
                         mNewMeeting_Participants.getEditText().getText().clear();
                     }
@@ -133,10 +120,7 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                         } else {
                             amPm = "AM";
                         }
-
                         mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                        hourChoosen = hourOfDay;
-
                     }
 
                 }, currentHour, currentMinute, false);

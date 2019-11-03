@@ -1,4 +1,4 @@
-package com.crea2dev.mareuced.ui.main;
+package com.crea2dev.mareuced.ui.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.crea2dev.mareuced.AddMeetingActivity;
+import com.crea2dev.mareuced.ui.ui.add_meeting.AddMeetingActivity;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Service.MeetingApiService;
-import com.crea2dev.mareuced.Views.MeetingRecycleViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,18 +30,17 @@ import butterknife.ButterKnife;
 public class MainFragment extends Fragment {
 
     // FOR DESIGN
-    @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView; // 1 - Declare RecyclerView
-
-    private FloatingActionButton fab;
+    // 1 - Declare RecyclerView & fab ????????????????????????????? <<<<<<<<<<<<<<<<<<<<<
+    @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.FAB_add_Meeting) FloatingActionButton fab;
 
     //FOR DATA
 
-    // 2 - Declare list of users (GithubUser) & Adapter
+    // 2 - Declare list of Meetings & Adapter
     private List<MeetingModel> Meetings;
     private MeetingRecycleViewAdapter adapter;
 
-    public MainFragment() { }
-
+//    ?????????????????????????? // - 3 constructor <<<<<<<<<<<<<<<<<<<<<<
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -54,16 +52,17 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
         ButterKnife.bind(this, view);
-        this.configureRecyclerView(); // - 4 Call during UI creation
 
-        fab = view.findViewById(R.id.FAB_add_Meeting);
+        // - 4 Call during UI creation
+        this.configureRecyclerView();
+
+        // - 5 Fab action
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), AddMeetingActivity.class));
             }
         });
-
         return view;
     }
 
@@ -136,6 +135,7 @@ public class MainFragment extends Fragment {
     // SORT MEETINGS
     // -------------------
 
+    // Sorting methods through envents
     @Subscribe
     public void onSortMeetingsByName (SortMeetingByNameEvent eventSortname){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();

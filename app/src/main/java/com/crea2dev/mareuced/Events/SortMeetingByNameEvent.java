@@ -17,7 +17,7 @@ public class SortMeetingByNameEvent {
      */
     public SortMeetingByNameEvent(List<MeetingModel> meetings) {
         this.meetings = meetings;
-    }///////FAUX ????
+    }
 
 
 }

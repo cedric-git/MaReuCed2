@@ -4,7 +4,7 @@
     >
 
     <item
-        android:id="@+id/menu_sort_by_nameNON"
+        android:id="@+id/menu_sort_by"
         android:icon="@drawable/ic_filter_list_black_24dp"
         android:title="@string/NAME_ORDER"
         app:showAsAction="ifRoom"

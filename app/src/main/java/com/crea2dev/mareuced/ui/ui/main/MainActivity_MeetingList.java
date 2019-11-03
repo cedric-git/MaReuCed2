@@ -1,4 +1,4 @@
-package com.crea2dev.mareuced;
+package com.crea2dev.mareuced.ui.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
@@ -8,9 +8,9 @@ import android.view.Menu;
 import android.os.Bundle;
 import android.view.MenuItem;
 import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
+import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
 import com.crea2dev.mareuced.Service.MeetingApiService;
-import com.crea2dev.mareuced.ui.main.MainFragment;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +31,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
+        // display (replace) MainFragment inside container
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, MainFragment.newInstance())

@@ -1,4 +1,4 @@
-package com.crea2dev.mareuced.Views;
+package com.crea2dev.mareuced.ui.ui.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;

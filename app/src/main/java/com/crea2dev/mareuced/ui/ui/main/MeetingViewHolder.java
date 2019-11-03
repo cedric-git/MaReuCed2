@@ -1,4 +1,4 @@
-package com.crea2dev.mareuced.Views;
+package com.crea2dev.mareuced.ui.ui.main;
 
 
 import android.view.View;
@@ -30,6 +30,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
         super(itemView);
         ButterKnife.bind(this, itemView);
 
+// Delete meeting
         mDeleteButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +38,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
             }
         });
 
+// Show participant list
         mButton_show_hide_participants.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +54,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
         });
     }
 
+//    Update with meeting
     public void updateWithMeeting(MeetingModel meeting){
         this.mName.setText(meeting.getName());
         this.mHour.setText(meeting.getHour());

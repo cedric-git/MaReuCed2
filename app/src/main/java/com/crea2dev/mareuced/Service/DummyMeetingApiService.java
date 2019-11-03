@@ -23,8 +23,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public void sortMeetingsByName()
-    { this.meetings=SortMeetings.nameOrder(meetings); }
+    public void sortMeetingsByName() { this.meetings=SortMeetings.nameOrder(meetings); }
 
     @Override
     public void sortMeetingsByDate() {

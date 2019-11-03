@@ -18,6 +18,9 @@ public interface MeetingApiService {
      */
     void addMeeting(MeetingModel meeting);
 
+    /**
+     * sort meetings by Name/Date/Place
+     */
     void sortMeetingsByName();
 
     void sortMeetingsByDate();

@@ -12,6 +12,8 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.crea2dev.mareuced.ui.ui.main.MainActivity_MeetingList;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -131,9 +133,9 @@ public class MainActivity_MeetingListTest {
 
 
     @Test
+    //Check Meetings list counts one less
     public void Delete_Button_Erase_Meeting(){
-        onView(withId(R.id.fragment_main_recycler_view))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
+        onView(withId(R.id.fragment_main_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
         onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new RecyclerViewUtils.ItemCount(currentMeetingsSize - 1));
     }
 

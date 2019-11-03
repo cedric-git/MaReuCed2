@@ -5,7 +5,7 @@
     android:id="@+id/AddMeetingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddMeetingActivity">
+    tools:context=".ui.ui.add_meeting.AddMeetingActivity">
 
     <TextView
         android:id="@+id/textView"

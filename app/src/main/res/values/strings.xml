@@ -1,3 +1,4 @@
+
 <resources>
     <string name="app_name">MaReuCed</string>
 
@@ -7,8 +8,8 @@
 
 
 
-        <string name="NAME_ORDER">Sort by name</string>
-        <string name="TIME_ORDER">Sort by date</string>
+    <string name="NAME_ORDER">Sort by name</string>
+    <string name="TIME_ORDER">Sort by date</string>
 
 
 </resources>
