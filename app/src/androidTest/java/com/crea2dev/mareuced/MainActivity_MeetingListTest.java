@@ -4,29 +4,26 @@ package com.crea2dev.mareuced;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-
 import com.crea2dev.mareuced.ui.ui.main.MainActivity_MeetingList;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -45,6 +42,7 @@ public class MainActivity_MeetingListTest {
 
 
     @Test
+    // click on add Meeting FAB, fill the fields, Add Participant, Save meeting <<<<<<<<<<<<<
     public void Save_Meeting_Button_Add_Meeting() {
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.FAB_add_Meeting),
@@ -127,19 +125,17 @@ public class MainActivity_MeetingListTest {
                         isDisplayed()));
         appCompatButton4.perform(click());
 
-        //Check Meetings list counts one more
+        //Check Meetings list(via ItemCount) counts 1 more   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize + 1));
     }
 
 
     @Test
-    //Check Meetings list counts one less
+    //Check Meetings list (via ItemCount) counts 1 less
     public void Delete_Button_Erase_Meeting(){
-        onView(withId(R.id.fragment_main_recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
-        onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new RecyclerViewUtils.ItemCount(currentMeetingsSize - 1));
+        onView(withId(R.id.fragment_main_recycler_view)).perform(actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
+        onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize - 1));
     }
-
-
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
