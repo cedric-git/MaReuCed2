@@ -21,17 +21,15 @@ import butterknife.BindView;
 
 public class MainActivity_MeetingList extends AppCompatActivity {
 
-    @BindView(R.id.button_show_hide_participants) Button mExpand_participant_Button;
-
-    private MeetingApiService mApiService;
-    private List<MeetingModel> mMeetings;
+    private MeetingApiService mApiService;     //  <<<<< declare object based on ApiService
+    private List<MeetingModel> mMeetings;   //  <<<<< declare object based on meeting list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        // display (replace) MainFragment inside container
+        // display (replace) MainFragment inside container  //  <<<<<<<<<<<<<<<
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, MainFragment.newInstance())
@@ -42,32 +40,36 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         mMeetings = mApiService.getMeetings();
     }
 
+    // Create Menu //  <<<<<<<<<
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
     }
 
+    // Register to eventbus to handle item clicks onStart <<<<<
     @Override
     protected void onStart() {
         super.onStart();
-        //Register to eventbus to handle item clicks
         EventBus.getDefault().register(this);
         mMeetings = mApiService.getMeetings();
     }
 
+    //UnRegister on Stop <<<<<
     @Override
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+    // ------------------------------ EVENTS ----------------------------------------
 
+    // Delete meeting through event <<<<<<<<<<<<<
     @Subscribe
     public void onDeleteMeeting(DeleteMeetingEvent event){
         mApiService.deleteMeeting(event.meeting);
     }
 
-///////////////////REACT
+    // Switch-Case to sort meeting by name/hour/place
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){

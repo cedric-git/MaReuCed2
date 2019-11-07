@@ -23,8 +23,8 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
     @BindView(R.id.button_show_hide_participants) Button mButton_show_hide_participants;
     @BindView(R.id.participants_text) TextView mParticipants;
 
-    public MeetingModel mMeeting;
-    public MeetingApiService meetingApiService;
+    public MeetingModel mMeeting;//  <<<<< declare object based on MeetingModel
+//    public MeetingApiService meetingApiService;//  <<<<< declare object based on ApiService
 
     public MeetingViewHolder(View itemView) {
         super(itemView);
@@ -38,7 +38,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
             }
         });
 
-// Show participant list
+// Show/hide participant list
         mButton_show_hide_participants.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
         });
     }
 
-//    Update with meeting
+// Update with meeting
     public void updateWithMeeting(MeetingModel meeting){
         this.mName.setText(meeting.getName());
         this.mHour.setText(meeting.getHour());

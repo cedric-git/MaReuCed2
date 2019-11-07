@@ -59,14 +59,14 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
         mValidateButton.setOnClickListener(
                 new OnClickListener(){
                     @Override
-                    public void onClick(View v) {   //  avoid missing fileds
+                    public void onClick(View v) {   //  avoid missing fields
                         if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
                                  && !mNewMeeting_Time.getEditText().getText().toString().equals("")
                                  && !mDisplayParticipantListTesxtView.getText().toString().equals("Participant's list")
                                  && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
                         {
 
-                            mMeeting = new MeetingModel(    //  get meeting data
+                            mMeeting = new MeetingModel(    //  get meeting data (from filled fields)
                                     mNewMeeting_Name.getEditText().getText().toString(),
                                     mNewMeeting_Time.getEditText().getText().toString(),
                                     mNewMeeting_Place.getEditText().getText().toString(),
@@ -82,7 +82,6 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                             toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 300);
                             TextView toastMessage=(TextView) toast.getView().findViewById(android.R.id.message);
                             toastMessage.setTextColor(Color.RED);
-
                             toast.show();
 
                         }
@@ -90,7 +89,7 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                 });
 
         //================================ ADD PARTICIPANTS
-
+// on click on "add participant" button ...
         mAddParticipantButton.setOnClickListener(
                 new OnClickListener() {
                     String newParticipant = "";
@@ -98,11 +97,11 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     @Override
                     public void onClick(View v) {
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
-                        newParticipant = newParticipant + inputParticipant+"\n" ;
+                        newParticipant = newParticipant + inputParticipant+"\n" ; // add participant to string + new line caracter
 
-                        // display participants added in textview below
-                        mDisplayParticipantListTesxtView.setText(newParticipant);
-                        mNewMeeting_Participants.getEditText().getText().clear();
+
+                        mDisplayParticipantListTesxtView.setText(newParticipant);  // display participants added in textview preview below
+                        mNewMeeting_Participants.getEditText().getText().clear(); // clear the field
                     }
                 });
 

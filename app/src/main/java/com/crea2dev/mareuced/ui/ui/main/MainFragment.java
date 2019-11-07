@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 public class MainFragment extends Fragment {
 
     // FOR DESIGN
-    // 1 - Declare RecyclerView & fab ????????????????????????????? <<<<<<<<<<<<<<<<<<<<<
+    // 1 - Declare/Bind RecyclerView & fab  <<<<<<<<<<<<<<<<<<<<<
     @BindView(R.id.fragment_main_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.FAB_add_Meeting) FloatingActionButton fab;
 
@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
     private List<MeetingModel> Meetings;
     private MeetingRecycleViewAdapter adapter;
 
-//    ?????????????????????????? // - 3 constructor <<<<<<<<<<<<<<<<<<<<<<
+    // 3 - build <<<<<<<<<<<<<<<<<<<<<<
     public static MainFragment newInstance() {
         return new MainFragment();
     }
@@ -56,7 +56,7 @@ public class MainFragment extends Fragment {
         // - 4 Call during UI creation
         this.configureRecyclerView();
 
-        // - 5 Fab action
+        // - 5 Fab action   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FAB add meeting
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,10 +86,13 @@ public class MainFragment extends Fragment {
         this.Meetings = new ArrayList<>();
         Injection.getMeetingApiService().getMeetings();
         this.Meetings=Injection.getMeetingApiService().getMeetings();
+
         // 3.2 - Create adapter passing the list of meetings
         this.adapter = new MeetingRecycleViewAdapter(this.Meetings);
+
         // 3.3 - Attach the adapter to the recyclerview to populate items
         this.recyclerView.setAdapter(this.adapter);
+
         // 3.4 - Set layout manager to position the items
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
