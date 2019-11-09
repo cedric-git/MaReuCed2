@@ -10,7 +10,7 @@ public abstract class DummyMeetingGenerator {
     private static List<MeetingModel> DUMMY_MEETINGS = Arrays.asList(
 
             new MeetingModel("Design (3)", "15:00PM", "Salle 7", "zoe@gmail.com" +"\n" +"romain@gmail.com" +"\n" +"luigi@gmail.com"),
-            new MeetingModel("Budget (1)", "14:00PM", "Salle 3", "bob@gmail.com"),
+            new MeetingModel("Budget (1)", "14:00PM", "Salle 3", "bob@gmail.com"+"\n" +"yoyoy@gmail.com" ),
             new MeetingModel("Coding (2)", "16:00PM", "Amphi", "ced@gmail.com")
     );
 

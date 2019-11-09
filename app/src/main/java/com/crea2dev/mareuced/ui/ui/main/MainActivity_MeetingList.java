@@ -69,6 +69,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         mApiService.deleteMeeting(event.meeting);
     }
 
+    //  ------------------------------------------------------------------------------
     // Switch-Case to sort meeting by name/hour/place
     public boolean onOptionsItemSelected(MenuItem item) {
 

@@ -24,7 +24,6 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder implements View.O
     @BindView(R.id.participants_text) TextView mParticipants;
 
     public MeetingModel mMeeting;//  <<<<< declare object based on MeetingModel
-//    public MeetingApiService meetingApiService;//  <<<<< declare object based on ApiService
 
     public MeetingViewHolder(View itemView) {
         super(itemView);

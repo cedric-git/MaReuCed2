@@ -54,6 +54,48 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
         ButterKnife.bind(this, view);
 
 
+        //================================  TIME PICKER
+
+        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    }
+
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
+
+        //================================ ADD PARTICIPANTS
+// on click on "add participant" button ...
+        mAddParticipantButton.setOnClickListener(
+                new OnClickListener() {
+                    String newParticipant = "";
+
+                    @Override
+                    public void onClick(View v) {
+                        String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
+                        newParticipant = newParticipant + inputParticipant+"\n" ; // add participant to string + new line caracter
+
+
+                        mDisplayParticipantListTesxtView.setText(newParticipant);  // display participants added in textview preview below
+                        mNewMeeting_Participants.getEditText().getText().clear(); // clear the field
+                    }
+                });
+
+
+
+
         //================================ SAVE MEETING
 
         mValidateButton.setOnClickListener(
@@ -88,44 +130,7 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     }
                 });
 
-        //================================ ADD PARTICIPANTS
-// on click on "add participant" button ...
-        mAddParticipantButton.setOnClickListener(
-                new OnClickListener() {
-                    String newParticipant = "";
 
-                    @Override
-                    public void onClick(View v) {
-                        String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
-                        newParticipant = newParticipant + inputParticipant+"\n" ; // add participant to string + new line caracter
-
-
-                        mDisplayParticipantListTesxtView.setText(newParticipant);  // display participants added in textview preview below
-                        mNewMeeting_Participants.getEditText().getText().clear(); // clear the field
-                    }
-                });
-
-        //================================  TIME PICKER
-
-        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = "PM";
-                        } else {
-                            amPm = "AM";
-                        }
-                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                    }
-
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
-            }
-        });
         return view;
     }
 
