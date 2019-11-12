@@ -138,7 +138,7 @@ public class MainFragment extends Fragment {
     // SORT MEETINGS
     // -------------------
 
-    // Sorting methods through envents
+    // Sorting methods through events
     @Subscribe
     public void onSortMeetingsByName (SortMeetingByNameEvent eventSortname){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();

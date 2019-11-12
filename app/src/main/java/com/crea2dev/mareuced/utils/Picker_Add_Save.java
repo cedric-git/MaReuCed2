@@ -1,4 +1,21 @@
-package com.crea2dev.mareuced.ui.ui.add_meeting;
+package com.crea2dev.mareuced.utils;
+
+import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.text.Html;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.crea2dev.mareuced.Model.MeetingModel;
+import com.crea2dev.mareuced.R;
+import com.crea2dev.mareuced.Service.Injection;
+import com.google.android.material.textfield.TextInputLayout;
+
+import butterknife.BindView;
 
 import android.app.TimePickerDialog;
 import android.graphics.Color;
@@ -14,67 +31,50 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
-
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
-import com.crea2dev.mareuced.ui.ui.main.MainFragment;
 import com.google.android.material.textfield.TextInputLayout;
-import com.crea2dev.mareuced.utils.Picker_Add_Save;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class AddMeetingFragment extends DialogFragment implements OnClickListener {
+public class Picker_Add_Save implements View.OnClickListener {
 
     TimePickerDialog timePickerDialog;
     int currentHour;
     int currentMinute;
     String amPm;
 
-    @BindView(R.id.newMeeting_Name) TextInputLayout mNewMeeting_Name;
-    @BindView(R.id.newMeeting_Place) TextInputLayout mNewMeeting_Place;
-    @BindView(R.id.newMeeting_Time) TextInputLayout mNewMeeting_Time;
-    @BindView(R.id.newMeeting_Participants) TextInputLayout mNewMeeting_Participants;
-    @BindView(R.id.button_add_meeting) Button mValidateButton;
-    @BindView(R.id.button_add_participant) Button mAddParticipantButton;
-    @BindView(R.id.display_participant_list_text_view) TextView mDisplayParticipantListTesxtView;
+    @BindView(R.id.newMeeting_Name)
+    TextInputLayout mNewMeeting_Name;
+    @BindView(R.id.newMeeting_Place)
+    TextInputLayout mNewMeeting_Place;
+    @BindView(R.id.newMeeting_Time)
+    TextInputLayout mNewMeeting_Time;
+    @BindView(R.id.newMeeting_Participants)
+    TextInputLayout mNewMeeting_Participants;
+    @BindView(R.id.button_add_meeting)
+    Button mValidateButton;
+    @BindView(R.id.button_add_participant)
+    Button mAddParticipantButton;
+    @BindView(R.id.display_participant_list_text_view)
+    TextView mDisplayParticipantListTesxtView;
 
-    public AddMeetingFragment() {// <<<<<<<<<<<<< ?
-    }
-
-
-    // 3 - build <<<<<<<<<<<<<<<<<<<<<<
-    public static AddMeetingFragment newInstance() {
-        return new AddMeetingFragment();
-
-    }
+    //    public AddMeetingFragment() {
+//    }
     private MeetingModel mMeeting;
 
-  //  ○ code correctement indenté ;
-    //○ longueur des classes inférieure à 500 lignes ;
-    //○ longueur des contrôleurs (Fragments et/ou Activités) inférieure à 300 lignes
-    //;
-    //○ longueur des méthodes inférieure à 50 lignes.
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-    }
-
-    @Override
+    //    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+//        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
 
-//        //================================  TIME PICKER
-//
-        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
+        //================================  TIME PICKER
+
+        mNewMeeting_Time.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
@@ -93,10 +93,8 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
             }
         });
 
-//        new Picker_Add_Save();    //  <<<<<<<<<<<<<<<<<<<<<<<<<
-//
-//        //================================ ADD PARTICIPANTS
-//
+        //================================ ADD PARTICIPANTS
+
 // on click on "add participant" button ...
         mAddParticipantButton.setOnClickListener(
                 new OnClickListener() {
@@ -105,7 +103,7 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     @Override
                     public void onClick(View v) {
                         String inputParticipant = mNewMeeting_Participants.getEditText().getText().toString();
-                        newParticipant = newParticipant + inputParticipant+"\n" ; // add participant to string + new line caracter
+                        newParticipant = newParticipant + inputParticipant + "\n"; // add participant to string + new line caracter
 
 
                         mDisplayParticipantListTesxtView.setText(newParticipant);  // display participants added in textview preview below
@@ -113,19 +111,16 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                     }
                 });
 
-
-
         //================================ SAVE MEETING
 
         mValidateButton.setOnClickListener(
-                new OnClickListener(){
+                new OnClickListener() {
                     @Override
                     public void onClick(View v) {   //  avoid missing fields
                         if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
-                                 && !mNewMeeting_Time.getEditText().getText().toString().equals("")
-                                 && !mDisplayParticipantListTesxtView.getText().toString().equals("Participant's list")
-                                 && !mNewMeeting_Place.getEditText().getText().toString().equals(""))
-                        {
+                                && !mNewMeeting_Time.getEditText().getText().toString().equals("")
+                                && !mDisplayParticipantListTesxtView.getText().toString().equals("Participant's list")
+                                && !mNewMeeting_Place.getEditText().getText().toString().equals("")) {
 
                             mMeeting = new MeetingModel(    //  get meeting data (from filled fields)
                                     mNewMeeting_Name.getEditText().getText().toString(),
@@ -135,25 +130,26 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                             );
 
                             Injection.getMeetingApiService().addMeeting(mMeeting);  // add meeeting
-                            getActivity().finish();
+//                getActivity().finish();   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< getActivity() ?????????
                         } else {
 
-                        // Missing field(s) toast
-                            Toast toast= Toast.makeText(getActivity(), Html.fromHtml("<big><b>WARNING : Field(s) missing !</b>"), Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 300);
-                            TextView toastMessage=(TextView) toast.getView().findViewById(android.R.id.message);
-                            toastMessage.setTextColor(Color.RED);
-                            toast.show();
+//                // Missing field(s) toast
+//                Toast toast= Toast.makeText(getActivity(), Html.fromHtml("<big><b>WARNING : Field(s) missing !</b>"), Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 300);
+//                TextView toastMessage=(TextView) toast.getView().findViewById(android.R.id.message);
+//                toastMessage.setTextColor(Color.RED);
+//                toast.show();
 
                         }
                     }
                 });
-
-
         return view;
     }
 
+
+
     @Override
     public void onClick(View v) {
+
     }
 }

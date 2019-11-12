@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#5521D81B</color>
     <color name="colorError">#00574B</color>
+
+    <color name="salleA">#c5e1a5</color>
+    <color name="salleB">#d1c4e9</color>
+    <color name="salleC">#80deea</color>
 </resources>

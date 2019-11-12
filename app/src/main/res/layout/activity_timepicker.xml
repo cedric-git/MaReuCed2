@@ -7,11 +7,13 @@
     tools:context="com.crea2dev.mareuced.TIMEPICKER">
 
     <EditText
-        android:id="@+id/etChooseTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:hint="Choose the time" />
+
+
+    android:id="@+id/etChooseTime"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:hint="Choose the time"/>
 
 </RelativeLayout>

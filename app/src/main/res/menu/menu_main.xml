@@ -5,21 +5,43 @@
 
     <item
         android:id="@+id/menu_sort_by"
+        android:icon="@drawable/ic_atoz"
+        android:title="@string/NAME_ORDER"
+        app:showAsAction="ifRoom">
+
+
+        <menu>
+            <item
+                android:id="@+id/menu_sort_by_name"
+                android:title="Sort by name" />
+            <item
+                android:id="@+id/menu_sort_by_date"
+                android:title="Sort by date" />
+            <item
+                android:id="@+id/menu_sort_by_place"
+                android:title="Sort by place" />
+
+        </menu>
+
+
+    </item>
+
+
+    <item
+        android:id="@+id/menu_filter_by"
         android:icon="@drawable/ic_filter_list_black_24dp"
         android:title="@string/NAME_ORDER"
         app:showAsAction="ifRoom"
         >
 
 
-    <menu>
-        <item android:id="@+id/menu_sort_by_name"
-            android:title="Sort by name"/>
-        <item android:id="@+id/menu_sort_by_date"
-            android:title="Sort by date"/>
-        <item android:id="@+id/menu_sort_by_place"
-            android:title="Sort by place"/>
+        <menu>
+            <item android:id="@+id/menu_filter_by_time"
+                android:title="Filter by Time"/>
+            <item android:id="@+id/menu_filter_by_place"
+                android:title="Filter by Place"/>
 
-    </menu>
+        </menu>
 
 
     </item>

@@ -70,6 +70,7 @@
                 android:id="@+id/time_zone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:inputType="datetime">
 
             </com.google.android.material.textfield.TextInputEditText>
