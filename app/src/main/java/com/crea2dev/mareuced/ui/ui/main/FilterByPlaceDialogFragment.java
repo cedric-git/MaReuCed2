@@ -33,12 +33,15 @@ public class FilterByPlaceDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_filter_by_place, container, false);
+        View view = inflater.inflate(R.layout.fragment_filter_by_place, container, false);  //  fragment_filter_by_place
+//        View view = inflater.inflate(R.layout.filter_list_dialog, container, false);  //  fragment_filter_by_place
         ButterKnife.bind(this, view);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter_by_place, container, false);
+        return inflater.inflate(R.layout.fragment_filter_by_place, container, false);  //  fragment_filter_by_place
+//        return inflater.inflate(R.layout.filter_list_dialog, container, false);  //  fragment_filter_by_place
 
+//   FilterByPlaceDialogFragment FilterByPlaceDialogFragment = new FilterByPlaceDialogFragment(getContext(), mRoomSpinner);
 
     }
     View.OnClickListener onClickListener = new View.OnClickListener() {

@@ -2,11 +2,16 @@ package com.crea2dev.mareuced.Service;
 
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.utils.SortMeetings;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
+//        private List<MeetingModel> mReunionList = generatorOfReunion();
+
     private List<MeetingModel> meetings = DummyMeetingGenerator.generateMeetings();
+    private List<MeetingModel> mReunionList = DummyMeetingGenerator.generateMeetings(); /// to Delete
 
     @Override
     public List<MeetingModel> getMeetings() {
@@ -35,4 +40,14 @@ public class DummyMeetingApiService implements MeetingApiService {
         this.meetings=SortMeetings.placeOrder(meetings);
     }
 
+        @Override
+    public ArrayList<MeetingModel> filter(String text){
+        ArrayList<MeetingModel> reunionSorted = new ArrayList<>();
+        for (MeetingModel r : this.mReunionList) {  // replace by meetings
+            if (r.getName().equalsIgnoreCase(text) || r.getHour().equals(text)){
+                reunionSorted.add(r);
+            }
+        }
+        return reunionSorted;
+    }
 }

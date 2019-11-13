@@ -6,12 +6,15 @@ public class MeetingModel {
         private String hour;
         private String place;
         private String mails;
+        private String nameRoom;
 
     public MeetingModel(String name, String hour, String place, String mails) {
             this.name = name;
             this.hour = hour;
             this.place = place;
             this.mails = mails;
+            this.nameRoom = nameRoom;
+
         }
 
         public String getName() {
@@ -41,5 +44,6 @@ public class MeetingModel {
         public void setMails(String mails) {
             this.mails = mails;
         }
+
 }
 
