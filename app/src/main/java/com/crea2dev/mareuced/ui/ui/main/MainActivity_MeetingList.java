@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.crea2dev.mareuced.Events.FilterMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
@@ -38,6 +39,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
 
     public static MeetingApiService mApiService;     //  <<<<< declare object based on ApiService  << private
     private List<MeetingModel> mMeetings;   //  <<<<< declare object based on meeting list
+    String itemName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +57,10 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         mMeetings = mApiService.getMeetings();
     }
 
-    private void initListAdapter(List<MeetingModel> Meetings) { //  reunions
-        mRecyclerView.setAdapter(new MeetingRecycleViewAdapter(Meetings));//  reunions
-        Log.i("meeting Fragment", String.valueOf(Meetings.size()));//  reunions
-    }
+//    private void initListAdapter(List<MeetingModel> Meetings) { //  reunions
+//        mRecyclerView.setAdapter(new MeetingRecycleViewAdapter(Meetings));//  reunions
+//        Log.i("meeting Fragment", String.valueOf(Meetings.size()));//  reunions
+//    }
 
         // Create Menu //  <<<<<<<<<
     @Override
@@ -127,11 +129,11 @@ public class MainActivity_MeetingList extends AppCompatActivity {
 
             case R.id.menu_filter_by_place:
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, FilterByPlaceDialogFragment.newInstance())
-                        .commitNow();
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.container, FilterByPlaceDialogFragment.newInstance())
+//                        .commitNow();
 
-//                configureAndShowAlertDialog();
+                configureAndShowAlertDialog();
 
                 return true;
 
@@ -145,7 +147,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     private void configureAndShowAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        View view = LayoutInflater.from(this()).inflate(R.layout.filter_list_dialog, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
         final Spinner spinner = view.findViewById(R.id.spinner_choice); //  <<<< Oter 'final'
         RoomItemSpinnerUtil.initRoomSpinner(view, spinner);
@@ -165,9 +167,10 @@ public class MainActivity_MeetingList extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ArrayList<MeetingModel> meeting = MainActivity_MeetingList// ReunionListActivity
-                                        .mApiService.filter(itemName); //       mReunionListService
-                                initListAdapter(meeting);
+//                                ArrayList<MeetingModel> meeting = MainActivity_MeetingList// ReunionListActivity
+//                                        .mApiService.filter(itemName); //       mReunionListService
+//                                initListAdapter(meeting);
+                                EventBus.getDefault().post(new FilterMeetingByPlaceEvent(itemName));
                             }
                         })
                 .setNegativeButton("Annuler",
@@ -216,7 +219,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
                         (dialog, which) -> {
                             ArrayList<MeetingModel> reunion = MainActivity_MeetingList// ReunionListActivity
                                     .mApiService.filter(itemName);
-                            initListAdapter(reunion);
+//                            initListAdapter(reunion);
                         })
                 .setNegativeButton("Annuler",
                         new DialogInterface.OnClickListener() {

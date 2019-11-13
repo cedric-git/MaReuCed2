@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crea2dev.mareuced.Events.FilterMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Model.RoomItemSpinner;
 import com.crea2dev.mareuced.ui.ui.add_meeting.AddMeetingActivity;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
@@ -134,7 +135,9 @@ public class MainFragment extends Fragment {
     private void updateUI(List<MeetingModel> users){
         Meetings = new ArrayList<>();
         Meetings.addAll(users);
+        adapter.filterMeetings(Meetings);
         adapter.notifyDataSetChanged();
+
 
     }
 @Override
@@ -192,6 +195,15 @@ public class MainFragment extends Fragment {
         this.Meetings=Injection.getMeetingApiService().getMeetings();
         updateUI(this.Meetings);
     };
+
+    @Subscribe
+    public void onFilterMeetingsByPlace (FilterMeetingByPlaceEvent eventFilterPlace){
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();
+//        meetingApiService.FilterMeetingsByPlace();
+        this.Meetings=Injection.getMeetingApiService().filter(eventFilterPlace.filter);
+        updateUI(this.Meetings);
+    };
+
 
 ////  =====================================================================FILTER PLACE
 ////

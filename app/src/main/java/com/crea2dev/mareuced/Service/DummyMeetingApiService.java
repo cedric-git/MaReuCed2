@@ -40,11 +40,11 @@ public class DummyMeetingApiService implements MeetingApiService {
         this.meetings=SortMeetings.placeOrder(meetings);
     }
 
-        @Override
+    @Override
     public ArrayList<MeetingModel> filter(String text){
         ArrayList<MeetingModel> reunionSorted = new ArrayList<>();
         for (MeetingModel r : this.mReunionList) {  // replace by meetings
-            if (r.getName().equalsIgnoreCase(text) || r.getHour().equals(text)){
+            if (r.getPlace().equalsIgnoreCase(text) || r.getHour().equals(text)){ // << getName
                 reunionSorted.add(r);
             }
         }

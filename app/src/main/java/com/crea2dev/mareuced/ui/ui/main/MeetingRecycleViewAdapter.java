@@ -70,4 +70,9 @@ public class MeetingRecycleViewAdapter extends RecyclerView.Adapter<MeetingViewH
             ButterKnife.bind(this, view);
         }
     }
+
+    public void filterMeetings (List<MeetingModel> meetings) {
+        this.mMeetings=meetings;
+        notifyDataSetChanged();
+    }
 }
