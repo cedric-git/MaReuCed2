@@ -8,8 +8,6 @@ import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-//        private List<MeetingModel> mReunionList = generatorOfReunion();
-
     private List<MeetingModel> meetings = DummyMeetingGenerator.generateMeetings();
     private List<MeetingModel> mReunionList = DummyMeetingGenerator.generateMeetings(); /// to Delete
 

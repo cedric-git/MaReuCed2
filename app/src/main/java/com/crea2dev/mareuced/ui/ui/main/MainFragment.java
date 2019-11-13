@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crea2dev.mareuced.Events.FilterMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.FilterMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Model.RoomItemSpinner;
 import com.crea2dev.mareuced.ui.ui.add_meeting.AddMeetingActivity;
@@ -195,12 +196,21 @@ public class MainFragment extends Fragment {
         this.Meetings=Injection.getMeetingApiService().getMeetings();
         updateUI(this.Meetings);
     };
+    // -------------------
+    // FILTER MEETINGS
+    // -------------------
 
     @Subscribe
     public void onFilterMeetingsByPlace (FilterMeetingByPlaceEvent eventFilterPlace){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();
-//        meetingApiService.FilterMeetingsByPlace();
         this.Meetings=Injection.getMeetingApiService().filter(eventFilterPlace.filter);
+        updateUI(this.Meetings);
+    };
+
+    @Subscribe
+    public void onFilterMeetingsByDate (FilterMeetingByDateEvent eventFilterDate){
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();
+        this.Meetings=Injection.getMeetingApiService().filter(eventFilterDate.filter);
         updateUI(this.Meetings);
     };
 

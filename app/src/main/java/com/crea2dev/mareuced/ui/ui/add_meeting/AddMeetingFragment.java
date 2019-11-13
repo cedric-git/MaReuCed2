@@ -56,17 +56,9 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
     // 3 - build <<<<<<<<<<<<<<<<<<<<<<
     public static AddMeetingFragment newInstance() {
         return new AddMeetingFragment();
-
     }
 
     private MeetingModel mMeeting;
-
-    //  ○ code correctement indenté ;
-    //○ longueur des classes inférieure à 500 lignes ;
-    //○ longueur des contrôleurs (Fragments et/ou Activités) inférieure à 300 lignes
-    //;
-    //○ longueur des méthodes inférieure à 50 lignes.
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,34 +73,42 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
 
-//        new Picker_Add_Save();    //  <<<<<<<<<<<<<<<<<<<<<<<<<
-
-//        //================================  TIME PICKER
-
         initPicker();
+        addParticipant();
+        saveMeeting();
 
-//        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-//                    @Override
-//                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-//                        if (hourOfDay >= 12) {
-//                            amPm = "PM";
-//                        } else {
-//                            amPm = "AM";
-//                        }
-//                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-//                    }
-//
-//                }, currentHour, currentMinute, false);
-//                timePickerDialog.show();
-//            }
-//        });
+        return view;
+    }
 
+    @Override
+    public void onClick(View v) {
+    }
 
-//        //================================ ADD PARTICIPANTS
-//
+ //================================ PICKER
+    private void initPicker() {
+        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        if (hourOfDay >= 12) {
+                            amPm = "PM";
+                        } else {
+                            amPm = "AM";
+                        }
+                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                    }
+
+                }, currentHour, currentMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
+    }
+
+//================================ ADD PARTICIPANTS
+    private void addParticipant() {
 // on click on "add participant" button ...
         mAddParticipantButton.setOnClickListener(
                 new OnClickListener() {
@@ -124,10 +124,11 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                         mNewMeeting_Participants.getEditText().getText().clear(); // clear the field
                     }
                 });
+    }
 
+//================================ SAVE MEETING
+    private void saveMeeting() {
 
-//        ================================ SAVE MEETING
-//
         mValidateButton.setOnClickListener(
                 new OnClickListener() {
                     @Override
@@ -158,35 +159,6 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
                         }
                     }
                 });
-
-
-        return view;
-    }
-
-    @Override
-    public void onClick(View v) {
-    }
-
-    private void initPicker() {
-        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = "PM";
-                        } else {
-                            amPm = "AM";
-                        }
-                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
-                    }
-
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
-            }
-        });
-
     }
 
 }

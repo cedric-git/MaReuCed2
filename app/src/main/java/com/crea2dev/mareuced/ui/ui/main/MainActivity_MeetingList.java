@@ -14,10 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.crea2dev.mareuced.Events.FilterMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.FilterMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
+import com.crea2dev.mareuced.Model.DateItemSpinner;
 import com.crea2dev.mareuced.Model.RoomItemSpinner;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
@@ -121,17 +123,12 @@ public class MainActivity_MeetingList extends AppCompatActivity {
 
             case R.id.menu_filter_by_time:
 
-//                startActivity(new Intent(this, AddMeetingActivity.class));    // fonctionne en 1 ligne
-
-//                configureAndShowAlertDate();
+                configureAndShowAlertDate();
 
                 return true;
 
             case R.id.menu_filter_by_place:
 
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.container, FilterByPlaceDialogFragment.newInstance())
-//                        .commitNow();
 
                 configureAndShowAlertDialog();
 
@@ -142,34 +139,32 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         }
     }
 
-    //  =====================================================================FILTER PLACE
+    //  =====================================================================FILTER BY PLACE
 //
     private void configureAndShowAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
-        final Spinner spinner = view.findViewById(R.id.spinner_choice); //  <<<< Oter 'final'
+        final Spinner spinner = view.findViewById(R.id.spinner_choice);
         RoomItemSpinnerUtil.initRoomSpinner(view, spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RoomItemSpinner roomItemSpinner = (RoomItemSpinner) spinner.getSelectedItem();
                 itemName = roomItemSpinner.getRoomName();
+//                itemName = spinner.getSelectedItem().toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        builder.setTitle("Sélectionnez une valeur")
+        builder.setTitle("Select the place")
                 .setView(view)
                 .setPositiveButton("Filtrer",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-//                                ArrayList<MeetingModel> meeting = MainActivity_MeetingList// ReunionListActivity
-//                                        .mApiService.filter(itemName); //       mReunionListService
-//                                initListAdapter(meeting);
                                 EventBus.getDefault().post(new FilterMeetingByPlaceEvent(itemName));
                             }
                         })
@@ -183,7 +178,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         builder.create().show();
     }
 
-//  =====================================================================FILTER DATE
+//  =====================================================================FILTER BY DATE
 
     private void configureAndShowAlertDate(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -208,31 +203,29 @@ public class MainActivity_MeetingList extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 itemName = spinner.getSelectedItem().toString();
+//                itemName = DateItemSpinner.getMeetingDate();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        builder.setTitle("Sélectionnez une valeur")
+        builder.setTitle("Select the time")
                 .setView(view)
-                .setPositiveButton("Filtrer",
-                        (dialog, which) -> {
-                            ArrayList<MeetingModel> reunion = MainActivity_MeetingList// ReunionListActivity
-                                    .mApiService.filter(itemName);
-//                            initListAdapter(reunion);
+                .setPositiveButton("Filter",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                EventBus.getDefault().post(new FilterMeetingByDateEvent(itemName));
+                            }
                         })
-                .setNegativeButton("Annuler",
+
+                .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                             }
                         });
 
-
-
         builder.create().show();
     }
-    //  ==================================================================================================
-
-
 }
