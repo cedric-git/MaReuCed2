@@ -15,5 +15,4 @@ public class FilterMeetingByPlaceEvent {
         this.filter = filter;
     }
 
-
 }

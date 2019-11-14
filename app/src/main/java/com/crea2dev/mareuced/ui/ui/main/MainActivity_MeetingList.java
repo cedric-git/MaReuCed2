@@ -3,8 +3,7 @@ package com.crea2dev.mareuced.ui.ui.main;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
-import android.util.Log;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.os.Bundle;
@@ -19,14 +18,11 @@ import com.crea2dev.mareuced.Events.FilterMeetingByPlaceEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByDateEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByNameEvent;
 import com.crea2dev.mareuced.Events.SortMeetingByPlaceEvent;
-import com.crea2dev.mareuced.Model.DateItemSpinner;
-import com.crea2dev.mareuced.Model.RoomItemSpinner;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
 import com.crea2dev.mareuced.Service.MeetingApiService;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.Events.DeleteMeetingEvent;
-import com.crea2dev.mareuced.utils.RoomItemSpinnerUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -59,12 +55,8 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         mMeetings = mApiService.getMeetings();
     }
 
-//    private void initListAdapter(List<MeetingModel> Meetings) { //  reunions
-//        mRecyclerView.setAdapter(new MeetingRecycleViewAdapter(Meetings));//  reunions
-//        Log.i("meeting Fragment", String.valueOf(Meetings.size()));//  reunions
-//    }
 
-        // Create Menu //  <<<<<<<<<
+    // Create Menu //  <<<<<<<<<
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -85,7 +77,6 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-    // ------------------------------ EVENTS ----------------------------------------
 
     // Delete meeting through event <<<<<<<<<<<<<
     @Subscribe
@@ -93,43 +84,40 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         mApiService.deleteMeeting(event.meeting);
     }
 
-    //  ------------------------------------------------------------------------------
-    // Case to sort meeting by name/hour/place
-    public boolean onOptionsItemSelected(MenuItem item) {
+    //  ---------------------------------------------------------------------------- EXTRA
+    // Case to sort meeting by name/hour/place  //  *****EXTRA
 
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected(MenuItem item) {  //  *****EXTRA
+
+        switch (item.getItemId()){  //  *****EXTRA
             case R.id.menu_sort_by_name:
+                mApiService = Injection.getMeetingApiService();  //  *****EXTRA
+                mMeetings = mApiService.getMeetings();  //  *****EXTRA
+                EventBus.getDefault().post(new SortMeetingByNameEvent(mMeetings));  //  *****EXTRA
 
-                mApiService = Injection.getMeetingApiService();
-                mMeetings = mApiService.getMeetings();
-                EventBus.getDefault().post(new SortMeetingByNameEvent(mMeetings));
+                return true;  //  *****EXTRA
 
-                return true;
+            case R.id.menu_sort_by_date:  //  *****EXTRA
+                mApiService = Injection.getMeetingApiService();  //  *****EXTRA
+                mMeetings = mApiService.getMeetings();  //  *****EXTRA
+                EventBus.getDefault().post(new SortMeetingByDateEvent(mMeetings));  //  *****EXTRA
 
-            case R.id.menu_sort_by_date:
-                mApiService = Injection.getMeetingApiService();
-                mMeetings = mApiService.getMeetings();
-                EventBus.getDefault().post(new SortMeetingByDateEvent(mMeetings));
+                return true;  //  *****EXTRA
 
-                return true;
-
-            case R.id.menu_sort_by_place:
-                mApiService = Injection.getMeetingApiService();
-                mMeetings = mApiService.getMeetings();
-                EventBus.getDefault().post(new SortMeetingByPlaceEvent(mMeetings));
+            case R.id.menu_sort_by_place:  //  *****EXTRA
+                mApiService = Injection.getMeetingApiService();  //  *****EXTRA
+                mMeetings = mApiService.getMeetings();  //  *****EXTRA
+                EventBus.getDefault().post(new SortMeetingByPlaceEvent(mMeetings));  //  *****EXTRA
 
     //  ------------------------------------------------------------------------------
     // Case to filter meeting by name/hour/place
 
             case R.id.menu_filter_by_time:
-
                 configureAndShowAlertDate();
 
                 return true;
 
             case R.id.menu_filter_by_place:
-
-
                 configureAndShowAlertDialog();
 
                 return true;
@@ -144,18 +132,15 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     private void configureAndShowAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
         final Spinner spinner = view.findViewById(R.id.spinner_choice);
 
-        List<String> arrayList = new ArrayList<>();
         Set<String> set = new HashSet<>();
         for (MeetingModel r : mMeetings){
             set.add(r.getPlace());
         }
-        for (String s : set){
-            arrayList.add(s);
-        }
+        List<String> arrayList = new ArrayList<>(set);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -174,18 +159,9 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         builder.setTitle("Select the place")
                 .setView(view)
                 .setPositiveButton("Filtrer",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                EventBus.getDefault().post(new FilterMeetingByPlaceEvent(itemName));
-                            }
-                        })
+                        (dialog, which) -> EventBus.getDefault().post(new FilterMeetingByPlaceEvent(itemName)))
                 .setNegativeButton("Annuler",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
+                        (dialog, which) -> { });
 
         builder.create().show();
     }
@@ -195,17 +171,14 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     private void configureAndShowAlertDate(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
+        @SuppressLint("InflateParams") View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
         final Spinner spinner = view.findViewById(R.id.spinner_choice);
-        List<String> arrayList = new ArrayList<>();
         Set<String> set = new HashSet<>();
         for (MeetingModel r : mMeetings){
             set.add(r.getHour());
         }
-        for (String s : set){
-            arrayList.add(s);
-        }
+        List<String> arrayList = new ArrayList<>(set);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -222,19 +195,9 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         builder.setTitle("Select the time")
                 .setView(view)
                 .setPositiveButton("Filter",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                EventBus.getDefault().post(new FilterMeetingByDateEvent(itemName));
-                            }
-                        })
-
+                        (dialog, which) -> EventBus.getDefault().post(new FilterMeetingByDateEvent(itemName)))
                 .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
+                        (dialog, which) -> { });
 
         builder.create().show();
     }

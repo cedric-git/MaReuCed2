@@ -19,9 +19,8 @@ import androidx.fragment.app.DialogFragment;
 import com.crea2dev.mareuced.Model.MeetingModel;
 import com.crea2dev.mareuced.R;
 import com.crea2dev.mareuced.Service.Injection;
-import com.crea2dev.mareuced.ui.ui.main.MainFragment;
 import com.google.android.material.textfield.TextInputLayout;
-import com.crea2dev.mareuced.utils.Picker_Add_Save;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,9 +48,8 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
     @BindView(R.id.display_participant_list_text_view)
     TextView mDisplayParticipantListTesxtView;
 
-    public AddMeetingFragment() {// <<<<<<<<<<<<< ?
-    }
-
+//    public AddMeetingFragment() {// <<<<<<<<<<<<< ?
+//    }
 
     // 3 - build <<<<<<<<<<<<<<<<<<<<<<
     public static AddMeetingFragment newInstance() {

@@ -1,9 +1,8 @@
 package com.crea2dev.mareuced.Events;
 
-import com.crea2dev.mareuced.Model.MeetingModel;
-import com.crea2dev.mareuced.utils.SortMeetings;
+        import com.crea2dev.mareuced.Model.MeetingModel;
 
-import java.util.List;
+        import java.util.List;
 
 public class SortMeetingByNameEvent {
     /**
