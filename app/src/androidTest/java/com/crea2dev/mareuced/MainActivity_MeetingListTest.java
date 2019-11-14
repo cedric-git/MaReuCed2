@@ -38,7 +38,7 @@ public class MainActivity_MeetingListTest {
 
     @Rule
     public ActivityTestRule<MainActivity_MeetingList> mActivityTestRule = new ActivityTestRule<>(MainActivity_MeetingList.class);
-    private int currentMeetingsSize = 3;
+    private int currentMeetingsSize = 5;
 
 
     @Test
