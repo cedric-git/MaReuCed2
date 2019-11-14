@@ -140,20 +140,32 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     }
 
     //  =====================================================================FILTER BY PLACE
-//
+
     private void configureAndShowAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
         final Spinner spinner = view.findViewById(R.id.spinner_choice);
-        RoomItemSpinnerUtil.initRoomSpinner(view, spinner);
+
+        List<String> arrayList = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+        for (MeetingModel r : mMeetings){
+            set.add(r.getPlace());
+        }
+        for (String s : set){
+            arrayList.add(s);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                RoomItemSpinner roomItemSpinner = (RoomItemSpinner) spinner.getSelectedItem();
-                itemName = roomItemSpinner.getRoomName();
-//                itemName = spinner.getSelectedItem().toString();
+                itemName = spinner.getSelectedItem().toString();
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -194,7 +206,6 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         for (String s : set){
             arrayList.add(s);
         }
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -203,7 +214,6 @@ public class MainActivity_MeetingList extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 itemName = spinner.getSelectedItem().toString();
-//                itemName = DateItemSpinner.getMeetingDate();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
