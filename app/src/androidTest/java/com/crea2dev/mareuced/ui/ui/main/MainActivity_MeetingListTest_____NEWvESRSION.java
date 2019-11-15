@@ -1,49 +1,48 @@
-package com.crea2dev.mareuced;
+package com.crea2dev.mareuced.ui.ui.main;
 
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
-import com.crea2dev.mareuced.ui.ui.main.MainActivity_MeetingList;
+
+import com.crea2dev.mareuced.ItemCount;
+import com.crea2dev.mareuced.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.crea2dev.mareuced.RecyclerViewUtils.clickChildView;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class MainActivity_MeetingListTest {
+public class MainActivity_MeetingListTest_____NEWvESRSION {
 
     @Rule
     public ActivityTestRule<MainActivity_MeetingList> mActivityTestRule = new ActivityTestRule<>(MainActivity_MeetingList.class);
     private int currentMeetingsSize = 5;
-
-
     @Test
     // click on add Meeting FAB, fill the fields, Add Participant, Save meeting <<<<<<<<<<<<<
-    public void Add_Meeting_MainActivity_MeetingListTest() {
+    public void mainActivity_MeetingListTest_____NEWvESRSION() {
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.FAB_add_Meeting),
                         childAtPosition(
@@ -133,19 +132,9 @@ public class MainActivity_MeetingListTest {
                         isDisplayed()));
         appCompatButton3.perform(click());
 
-//  -------------------------------------------------------------------------------------------------------------------------------
         //Check Meetings list(via ItemCount) counts 1 more   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize + 1));
-//  -------------------------------------------------------------------------------------------------------------------------------
-    }
 
-
-
-    @Test
-    //Check Meetings list (via ItemCount) counts 1 less
-    public void Delete_Button_Erase_Meeting(){
-        onView(withId(R.id.fragment_main_recycler_view)).perform(actionOnItemAtPosition(0, clickChildView(R.id.item_list_delete_button)));
-        onView(withId(R.id.fragment_main_recycler_view)).check((ViewAssertion) new ItemCount(currentMeetingsSize - 1));
     }
 
     private static Matcher<View> childAtPosition(

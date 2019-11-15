@@ -12,7 +12,7 @@ public abstract class DummyMeetingGenerator {
             new MeetingModel("Design", "15:00PM", "Salle 2", "zoe@gmail.com" +"\n" +"romain@gmail.com" +"\n" +"luigi@gmail.com"),
             new MeetingModel("Budget", "14:00PM", "Salle 3", "bob@gmail.com"+"\n" +"yoyoy@gmail.com" ),
             new MeetingModel("Coding", "16:00PM", "Amphi", "ced@gmail.com"),
-            new MeetingModel("Compta", "15:00PM", "Salle 1", "pierre@gmail.com" +"\n" +"paul@gmail.com"),
+            new MeetingModel("Marketing", "15:00PM", "Salle 1", "pierre@gmail.com" +"\n" +"paul@gmail.com"),
             new MeetingModel("Anglais", "15:00PM", "Amphi", "annie@gmail.com" +"\n" +"romane@gmail.com")
 
 
