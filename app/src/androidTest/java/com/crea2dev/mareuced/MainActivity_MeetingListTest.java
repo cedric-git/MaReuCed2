@@ -4,12 +4,16 @@ package com.crea2dev.mareuced;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+
+import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
+
+import com.crea2dev.mareuced.UtilsTest.RecyclerViewItemCountAssertion;
 import com.crea2dev.mareuced.ui.ui.main.MainActivity_MeetingList;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -17,6 +21,8 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -26,10 +32,12 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.crea2dev.mareuced.RecyclerViewUtils.clickChildView;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
@@ -139,6 +147,79 @@ public class MainActivity_MeetingListTest {
 //  -------------------------------------------------------------------------------------------------------------------------------
     }
 
+    @Test
+    public void Filter_on_a_place_Shows_Only_Meeting_in_this_place() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.menu_filter_by), withContentDescription("Sort by name"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1),
+                                2),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction appCompatTextView = onView(
+                allOf(withId(R.id.title), withText("Filter by Place"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatTextView.perform(click());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("Filtrer"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+
+//  -------------------------------------------------------------------------------------------------------------------------------
+        onView(withId(R.id.fragment_main_recycler_view)).check(RecyclerViewItemCountAssertion.withItemCount(2));
+//  -------------------------------------------------------------------------------------------------------------------------------
+    }
+
+
+    @Test
+    public void Filter_on_a_date_Shows_Only_Meeting_in_this_date() {
+        ViewInteraction actionMenuItemView = onView(
+                allOf(withId(R.id.menu_filter_by), withContentDescription("Sort by name"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1),
+                                2),
+                        isDisplayed()));
+        actionMenuItemView.perform(click());
+
+        ViewInteraction appCompatTextView = onView(
+                allOf(withId(R.id.title), withText("Filter by Time"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.content),
+                                        0),
+                                0),
+                        isDisplayed()));
+        appCompatTextView.perform(click());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(android.R.id.button1), withText("Filter"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton.perform(scrollTo(), click());
+
+
+//  -------------------------------------------------------------------------------------------------------------------------------
+        onView(withId(R.id.fragment_main_recycler_view)).check(RecyclerViewItemCountAssertion.withItemCount(1));
+//  -------------------------------------------------------------------------------------------------------------------------------
+    }
 
 
     @Test
