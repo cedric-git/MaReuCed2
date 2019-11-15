@@ -4,6 +4,16 @@
     >
 
     <item
+        android:id="@+id/menu_list_all"
+        android:icon="@drawable/ic_list_svgrepo_com"
+        android:title="@string/NAME_ORDER"
+        app:showAsAction="ifRoom">
+
+
+
+
+    </item>
+    <item
         android:id="@+id/menu_sort_by"
         android:icon="@drawable/ic_atoz"
         android:title="@string/NAME_ORDER"
@@ -13,13 +23,13 @@
         <menu>
             <item
                 android:id="@+id/menu_sort_by_name"
-                android:title="Sort by name" />
+                android:title="@string/Sort_by_name" />
             <item
                 android:id="@+id/menu_sort_by_date"
-                android:title="Sort by date" />
+                android:title="@string/Sort_by_time" />
             <item
                 android:id="@+id/menu_sort_by_place"
-                android:title="Sort by place" />
+                android:title="@string/Sort_by_place" />
 
         </menu>
 
@@ -36,10 +46,16 @@
 
 
         <menu>
-            <item android:id="@+id/menu_filter_by_time"
-                android:title="Filter by Time"/>
-            <item android:id="@+id/menu_filter_by_place"
-                android:title="Filter by Place"/>
+            <item
+                android:id="@+id/menu_filter_by_time"
+                android:title="@string/Filter_by_Time"/>
+            <item
+                android:id="@+id/menu_filter_by_place"
+                android:title="@string/Filter_by_Place"/>
+            <item
+                android:id="@+id/menu_no_filter"
+                android:title="@string/All"/>
+
 
         </menu>
 

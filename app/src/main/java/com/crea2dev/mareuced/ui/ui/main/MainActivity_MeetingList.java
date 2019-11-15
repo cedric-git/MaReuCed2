@@ -2,6 +2,7 @@ package com.crea2dev.mareuced.ui.ui.main;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class MainActivity_MeetingList extends AppCompatActivity {
     public static MeetingApiService mApiService;     //  <<<<< declare object based on ApiService  << private
     private List<MeetingModel> mMeetings;   //  <<<<< declare object based on meeting list
     String itemName = "";
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +55,8 @@ public class MainActivity_MeetingList extends AppCompatActivity {
 
         mApiService = Injection.getMeetingApiService();
         mMeetings = mApiService.getMeetings();
-    }
 
+    }
 
     // Create Menu //  <<<<<<<<<
     @Override
@@ -121,6 +123,21 @@ public class MainActivity_MeetingList extends AppCompatActivity {
                 configureAndShowAlertDialog();
 
                 return true;
+
+            case R.id.menu_no_filter:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, MainFragment.newInstance())
+                        .commitNow();
+
+                return true;
+
+            case R.id.menu_list_all:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, MainFragment.newInstance())
+                        .commitNow();
+
+                return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);

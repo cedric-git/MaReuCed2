@@ -8,5 +8,23 @@
     <string name="NAME_ORDER">Sort by name</string>
     <string name="TIME_ORDER">Sort by date</string>
 
+    <string name="Save_meeting">Save meeting</string>
+    <string name="Add_participant">Add participant</string>
+    <string name="Topic">Topic</string>
+    <string name="Place">Place</string>
+    <string name="Time">Time</string>
+    <string name="Sort_by_name">Sort by name</string>
+    <string name="Sort_by_time">Sort by time</string>
+    <string name="Sort_by_place">Sort by place</string>
+
+    <string name="Filter_by_Time">Filter by Time</string>
+    <string name="Filter_by_Place">Filter by Place</string>
+    <string name="Participants_mail">Participants mail</string>
+    <string name="Participants_list">Participants list</string>
+
+    <string name="Filter">Filter</string>
+    <string name="All">All</string>
+    <string name="salle">Salle : </string>
+
 
 </resources>

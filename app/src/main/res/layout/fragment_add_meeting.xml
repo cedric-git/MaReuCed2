@@ -21,7 +21,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please enter meeting's infos"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="15dp" />
 
@@ -32,7 +32,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/textView2"
 
-            android:hint="Topic"
+            android:hint="@string/Topic"
             app:helperText="required">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -47,7 +47,7 @@
             android:layout_below="@+id/newMeeting_Name"
 
 
-            android:hint="Place"
+            android:hint="@string/Place"
             app:helperText="required">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +63,7 @@
             android:layout_below="@+id/newMeeting_Place"
 
 
-            android:hint="Time"
+            android:hint="@string/Time"
             app:helperText="required">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +85,7 @@
             android:layout_below="@+id/newMeeting_Time"
 
 
-            android:hint="Participants' Mail">
+            android:hint="@string/Participants_mail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_Participant"
@@ -126,7 +126,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="18dp"
             android:layout_marginTop="236dp"
-            android:text="Participant's list" />
+            android:text="@string/Participants_list" />
 
 
     </RelativeLayout>

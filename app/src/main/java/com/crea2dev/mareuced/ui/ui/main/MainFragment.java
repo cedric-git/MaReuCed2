@@ -51,8 +51,8 @@ public class MainFragment extends Fragment {
     private List<MeetingModel> Meetings;
     private MeetingRecycleViewAdapter adapter;
 
-        // 3 - build <<<<<<<<<<<<<<<<<<<<<<
-    public static MainFragment newInstance() {
+    // 3 - build <<<<<<<<<<<<<<<<<<<<<<
+    static MainFragment newInstance() {
         return new MainFragment();
     }
 
@@ -68,12 +68,7 @@ public class MainFragment extends Fragment {
         this.configureRecyclerView();
 
         // - 5 Fab action   <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FAB add meeting
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), AddMeetingActivity.class));
-            }
-        });
+        fab.setOnClickListener(v -> startActivity(new Intent(v.getContext(), AddMeetingActivity.class)));
 
         return view;
     }
@@ -149,33 +144,33 @@ public class MainFragment extends Fragment {
     }
 
     // -------------------
-    // SORT MEETINGS
+    // SORT MEETINGS          //  *****EXTRA
     // -------------------
 
-    // Sorting methods through events
-    @Subscribe
-    public void onSortMeetingsByName (SortMeetingByNameEvent eventSortName){
-        MeetingApiService meetingApiService = Injection.getMeetingApiService();
-        meetingApiService.sortMeetingsByName();
-        this.Meetings=Injection.getMeetingApiService().getMeetings();
+    // Sorting methods through events  //  *****EXTRA
+    @Subscribe  //  *****EXTRA
+    public void onSortMeetingsByName (SortMeetingByNameEvent eventSortName){  //  *****EXTRA
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();  //  *****EXTRA
+        meetingApiService.sortMeetingsByName();  //  *****EXTRA
+        this.Meetings=Injection.getMeetingApiService().getMeetings();  //  *****EXTRA
         updateUI(this.Meetings);
-    };
+    }
 
-    @Subscribe
-    public void onSortMeetingsByDate(SortMeetingByDateEvent eventSortDate){
-        MeetingApiService meetingApiService = Injection.getMeetingApiService();
-        meetingApiService.sortMeetingsByDate();
-        this.Meetings=Injection.getMeetingApiService().getMeetings();
-        updateUI(this.Meetings);
-    };
+    @Subscribe  //  *****EXTRA
+    public void onSortMeetingsByDate(SortMeetingByDateEvent eventSortDate){  //  *****EXTRA
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();  //  *****EXTRA
+        meetingApiService.sortMeetingsByDate();  //  *****EXTRA
+        this.Meetings=Injection.getMeetingApiService().getMeetings();  //  *****EXTRA
+        updateUI(this.Meetings);  //  *****EXTRA
+    }  //  *****EXTRA
 
-    @Subscribe
-    public void onSortMeetingsByPlace (SortMeetingByPlaceEvent eventSortPlace){
-        MeetingApiService meetingApiService = Injection.getMeetingApiService();
-        meetingApiService.sortMeetingsByPlace();
-        this.Meetings=Injection.getMeetingApiService().getMeetings();
-        updateUI(this.Meetings);
-    };
+    @Subscribe  //  *****EXTRA
+    public void onSortMeetingsByPlace (SortMeetingByPlaceEvent eventSortPlace){  //  *****EXTRA
+        MeetingApiService meetingApiService = Injection.getMeetingApiService();  //  *****EXTRA
+        meetingApiService.sortMeetingsByPlace();  //  *****EXTRA
+        this.Meetings=Injection.getMeetingApiService().getMeetings();  //  *****EXTRA
+        updateUI(this.Meetings);  //  *****EXTRA
+    }
     // -------------------
     // FILTER MEETINGS
     // -------------------
@@ -185,12 +180,12 @@ public class MainFragment extends Fragment {
         MeetingApiService meetingApiService = Injection.getMeetingApiService();
         this.Meetings=Injection.getMeetingApiService().filter(eventFilterPlace.filter);
         updateUI(this.Meetings);
-    };
+    }
 
     @Subscribe
     public void onFilterMeetingsByDate (FilterMeetingByDateEvent eventFilterDate){
         MeetingApiService meetingApiService = Injection.getMeetingApiService();
         this.Meetings=Injection.getMeetingApiService().filter(eventFilterDate.filter);
         updateUI(this.Meetings);
-    };
+    }
 }
