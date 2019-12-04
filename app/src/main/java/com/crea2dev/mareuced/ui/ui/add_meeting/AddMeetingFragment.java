@@ -28,10 +28,10 @@ import butterknife.ButterKnife;
 
 public class AddMeetingFragment extends DialogFragment implements OnClickListener {
 
-    TimePickerDialog timePickerDialog;
-    int currentHour;
-    int currentMinute;
-    String amPm;
+    private TimePickerDialog timePickerDialog;
+    private int currentHour;
+    private int currentMinute;
+    private String amPm;
 
     @BindView(R.id.newMeeting_Name)
     TextInputLayout mNewMeeting_Name;
@@ -84,23 +84,20 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
 
  //================================ PICKER
     private void initPicker() {
-        mNewMeeting_Time.getEditText().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
-                        if (hourOfDay >= 12) {
-                            amPm = "PM";
-                        } else {
-                            amPm = "AM";
-                        }
-                        mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+        mNewMeeting_Time.getEditText().setOnClickListener(view -> {
+            timePickerDialog = new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                    if (hourOfDay >= 12) {
+                        amPm = "PM";
+                    } else {
+                        amPm = "AM";
                     }
+                    mNewMeeting_Time.getEditText().setText(String.format("%02d:%02d", hourOfDay, minutes) + amPm);
+                }
 
-                }, currentHour, currentMinute, false);
-                timePickerDialog.show();
-            }
+            }, currentHour, currentMinute, false);
+            timePickerDialog.show();
         });
 
     }
@@ -128,33 +125,30 @@ public class AddMeetingFragment extends DialogFragment implements OnClickListene
     private void saveMeeting() {
 
         mValidateButton.setOnClickListener(
-                new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {   //  avoid missing fields
-                        if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
-                                && !mNewMeeting_Time.getEditText().getText().toString().equals("")
-                                && !mDisplayParticipantListTesxtView.getText().toString().equals("Participant's list")
-                                && !mNewMeeting_Place.getEditText().getText().toString().equals("")) {
+                v -> {   //  avoid missing fields
+                    if (!mNewMeeting_Name.getEditText().getText().toString().equals("")
+                            && !mNewMeeting_Time.getEditText().getText().toString().equals("")
+                            && !mDisplayParticipantListTesxtView.getText().toString().equals("Participants list")
+                            && !mNewMeeting_Place.getEditText().getText().toString().equals("")) {
 
-                            mMeeting = new MeetingModel(    //  get meeting data (from filled fields)
-                                    mNewMeeting_Name.getEditText().getText().toString(),
-                                    mNewMeeting_Time.getEditText().getText().toString(),
-                                    mNewMeeting_Place.getEditText().getText().toString(),
-                                    mDisplayParticipantListTesxtView.getText().toString()
-                            );
+                        mMeeting = new MeetingModel(    //  get meeting data (from filled fields)
+                                mNewMeeting_Name.getEditText().getText().toString(),
+                                mNewMeeting_Time.getEditText().getText().toString(),
+                                mNewMeeting_Place.getEditText().getText().toString(),
+                                mDisplayParticipantListTesxtView.getText().toString()
+                        );
 
-                            Injection.getMeetingApiService().addMeeting(mMeeting);  // add meeeting
-                            getActivity().finish();
-                        } else {
+                        Injection.getMeetingApiService().addMeeting(mMeeting);  // add meeeting
+                        getActivity().finish();
+                    } else {
 
-                            // Missing field(s) toast
-                            Toast toast = Toast.makeText(getActivity(), Html.fromHtml("<big><b>WARNING : Field(s) missing !</b>"), Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 300);
-                            TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-                            toastMessage.setTextColor(Color.RED);
-                            toast.show();
+                        // Missing field(s) toast
+                        Toast toast = Toast.makeText(getActivity(), Html.fromHtml("<big><b>WARNING : Field(s) missing !</b>"), Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 300);
+                        TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
+                        toastMessage.setTextColor(Color.RED);
+                        toast.show();
 
-                        }
                     }
                 });
     }

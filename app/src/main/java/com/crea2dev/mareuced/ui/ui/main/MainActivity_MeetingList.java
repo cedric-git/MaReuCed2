@@ -152,16 +152,16 @@ public class MainActivity_MeetingList extends AppCompatActivity {
         @SuppressLint("InflateParams") View view = LayoutInflater.from(this).inflate(R.layout.filter_list_dialog, null);
 
         final Spinner spinner = view.findViewById(R.id.spinner_choice);
-
-        Set<String> set = new HashSet<>();
+        //  put the meetings recorded in a Set (set)
+        Set<String> set = new HashSet<>(); // to put the Places in order
         for (MeetingModel r : mMeetings){
             set.add(r.getPlace());
         }
-        List<String> arrayList = new ArrayList<>(set);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        List<String> arrayList = new ArrayList<>(set);  //  tranform Set to List
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, arrayList); // go through the adapter
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //  target the spinner view
 
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter);    // put the List in the spinner using adapter
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
